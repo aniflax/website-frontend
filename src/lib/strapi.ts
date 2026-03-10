@@ -105,7 +105,8 @@ export const mapHomepage = (data: any) => {
     heroSubtitle: attrs.heroSubtitle,
     heroImage: getStrapiURL(attrs.heroImage?.data?.attributes?.url || attrs.heroImage?.url),
     whyChoose: attrs.whyChoose || [],
-    testimonials: attrs.testimonials || []
+    testimonials: attrs.testimonials || [],
+    featuredVideos: attrs.featuredVideos || []
   };
 };
 

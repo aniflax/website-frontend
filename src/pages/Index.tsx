@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Star, ChevronRight } from "lucide-react";
+import { ArrowRight, Star, ChevronRight, Play } from "lucide-react";
 import * as Icons from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useQuery } from "@tanstack/react-query";
@@ -15,6 +16,12 @@ const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) =
 };
 
 const Index = () => {
+  const [playingVideos, setPlayingVideos] = useState<Record<number, boolean>>({});
+
+  const toggleVideo = (index: number) => {
+    setPlayingVideos((prev) => ({ ...prev, [index]: true }));
+  };
+
   const hero = useScrollAnimation();
   const cats = useScrollAnimation();
   const featured = useScrollAnimation();
@@ -27,7 +34,7 @@ const Index = () => {
   const { data: pageData, isLoading: pageLoading, isError: pageError } = useQuery({
     queryKey: ["homepage"],
     queryFn: async () => {
-      const response = await fetchStrapi("homepage", { populate: ["heroImage", "whyChoose", "testimonials"] });
+      const response = await fetchStrapi("homepage", { populate: ["heroImage", "whyChoose", "testimonials", "featuredVideos"] });
       return mapHomepage(response);
     },
     retry: 1
@@ -104,7 +111,37 @@ const Index = () => {
     );
   }
 
-  const { heroTitle, heroSubtitle, heroImage, whyChoose, testimonials } = pageData || {};
+  const { heroTitle, heroSubtitle, heroImage, whyChoose, testimonials, featuredVideos } = pageData || {};
+
+  // Helper to convert YouTube URL to embed URL
+  const getEmbedUrl = (url: string) => {
+    if (!url) return "";
+    let videoId = "";
+    if (url.includes("v=")) {
+      videoId = url.split("v=")[1].split("&")[0];
+    } else if (url.includes("youtu.be/")) {
+      videoId = url.split("youtu.be/")[1].split("?")[0];
+    } else if (url.includes("embed/")) {
+      videoId = url.split("embed/")[1].split("?")[0];
+    } else if (url.includes("shorts/")) {
+      videoId = url.split("shorts/")[1].split("?")[0];
+    }
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+  };
+
+  // Helper to get YouTube Thumbnail URL
+  const getYoutubeThumbnail = (url: string) => {
+    if (!url) return "";
+    let videoId = "";
+    if (url.includes("v=")) {
+      videoId = url.split("v=")[1].split("&")[0];
+    } else if (url.includes("youtu.be/")) {
+      videoId = url.split("youtu.be/")[1].split("?")[0];
+    } else if (url.includes("shorts/")) {
+      videoId = url.split("shorts/")[1].split("?")[0];
+    }
+    return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  };
 
   return (
     <div className="min-h-screen">
@@ -204,6 +241,57 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Featured Videos */}
+      {featuredVideos && featuredVideos.length > 0 && (
+        <section className="section-padding">
+          <div className="container mx-auto">
+            <div className="text-center mb-12">
+              <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Watch & Experience</p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold">Featured Videos</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {featuredVideos.map((video: any, i: number) => (
+                <div key={i} className="glass-card-hover overflow-hidden group flex flex-col">
+                  <div className="aspect-square relative bg-black cursor-pointer overflow-hidden" onClick={() => toggleVideo(i)}>
+                    {playingVideos[i] ? (
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src={getEmbedUrl(video.youtube_url)}
+                        title={video.title}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        className="w-full h-full object-cover"
+                      ></iframe>
+                    ) : (
+                      <>
+                        <img 
+                          src={getYoutubeThumbnail(video.youtube_url)} 
+                          alt={video.title} 
+                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 scale-105 group-hover:scale-100"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-16 h-16 rounded-full bg-primary/90 text-primary-foreground flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                            <Play size={32} fill="currentColor" className="ml-1" />
+                          </div>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </>
+                    )}
+                  </div>
+                  <div className="p-6 bg-card mt-auto border-t">
+                    <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors text-center">
+                      {video.title}
+                    </h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Why Choose */}
       <section className="section-padding">

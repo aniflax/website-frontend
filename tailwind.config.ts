@@ -15,14 +15,13 @@ export default {
   	extend: {
   		fontFamily: {
   			display: [
-  				'Playfair Display"',
+  				'"Playfair Display"',
   				'serif'
   			],
   			body: [
-  				'DM Sans"',
+  				'"DM Sans"',
   				'sans-serif'
-  			],
-  			sans: [
+  			],  			sans: [
   				'DM Sans',
   				'ui-sans-serif',
   				'system-ui',
