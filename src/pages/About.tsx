@@ -3,6 +3,7 @@ import * as Icons from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchStrapi, mapAboutPage } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
+import ContentLoadError from "@/components/ContentLoadError";
 
 // Provide a safe icon renderer
 const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) => {
@@ -15,7 +16,7 @@ const About = () => {
   const story = useScrollAnimation();
   const mission = useScrollAnimation();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["about-page"],
     queryFn: async () => {
       const response = await fetchStrapi("about-page", { populate: ["heroImage", "storyImage", "stats", "values"] });
@@ -31,6 +32,16 @@ const About = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24">
             {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-24 w-full" />)}
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="min-h-screen pt-24">
+        <div className="container mx-auto px-4">
+          <ContentLoadError message="About page content could not be loaded." />
         </div>
       </div>
     );

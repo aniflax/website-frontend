@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
 import { fetchStrapi, mapContactPage } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
+import ContentLoadError from "@/components/ContentLoadError";
 
 // Provide a safe icon renderer
 const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) => {
@@ -17,7 +18,7 @@ const Contact = () => {
   const header = useScrollAnimation();
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["contact-page"],
     queryFn: async () => {
       const response = await fetchStrapi("contact-page", { populate: ["contactInfo"] });
@@ -33,6 +34,16 @@ const Contact = () => {
 
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center"><Skeleton className="w-full h-full" /></div>;
+  }
+
+  if (isError) {
+    return (
+      <div className="min-h-screen pt-24">
+        <div className="container mx-auto px-4">
+          <ContentLoadError message="Contact page content could not be loaded." />
+        </div>
+      </div>
+    );
   }
 
   const { title, subtitle, contactInfo } = data || {};

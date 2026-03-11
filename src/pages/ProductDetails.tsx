@@ -5,13 +5,14 @@ import ProductCard from "@/components/ProductCard";
 import { useState } from "react";
 import { fetchStrapi, mapStrapiProduct } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
+import ContentLoadError from "@/components/ContentLoadError";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(0);
 
   // Fetch Product
-  const { data: product, isLoading: productLoading } = useQuery({
+  const { data: product, isLoading: productLoading, isError: productError } = useQuery({
     queryKey: ["product", id],
     queryFn: async () => {
       // id is documentId from Strapi 5
@@ -22,7 +23,7 @@ const ProductDetails = () => {
   });
 
   // Fetch Related Products (same category)
-  const { data: related, isLoading: relatedLoading } = useQuery({
+  const { data: related } = useQuery({
     queryKey: ["related-products", product?.category],
     queryFn: async () => {
       const response = await fetchStrapi("products", {
@@ -46,6 +47,14 @@ const ProductDetails = () => {
             <Skeleton className="h-20 w-full" />
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (productError) {
+    return (
+      <div className="min-h-screen pt-24 container mx-auto px-4">
+        <ContentLoadError message="This product could not be loaded." />
       </div>
     );
   }

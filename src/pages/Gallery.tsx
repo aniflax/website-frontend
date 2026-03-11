@@ -4,13 +4,14 @@ import { X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchStrapi, mapStrapiGallery } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
+import ContentLoadError from "@/components/ContentLoadError";
 
 const Gallery = () => {
   const [lightbox, setLightbox] = useState<number | null>(null);
   const header = useScrollAnimation();
 
   // Fetch Gallery
-  const { data: galleryImages, isLoading } = useQuery({
+  const { data: galleryImages, isLoading, isError } = useQuery({
     queryKey: ["gallery"],
     queryFn: async () => {
       const response = await fetchStrapi("galleries", { "pagination[limit]": 50, "populate": "*" });
@@ -37,6 +38,8 @@ const Gallery = () => {
               Array.from({ length: 9 }).map((_, i) => (
                 <Skeleton key={i} className="w-full h-64 rounded-2xl" />
               ))
+            ) : isError ? (
+              <ContentLoadError message="Gallery content could not be loaded." />
             ) : (
               galleryImages?.map((img: string, i: number) => (
                 <div

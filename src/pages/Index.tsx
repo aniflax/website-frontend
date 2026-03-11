@@ -5,8 +5,9 @@ import * as Icons from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "@/components/ProductCard";
-import { fetchStrapi, mapStrapiProduct, mapHomepage, getStrapiURL } from "@/lib/strapi";
+import { STRAPI_URL, fetchStrapi, mapStrapiProduct, mapHomepage, getStrapiURL } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
+import ContentLoadError from "@/components/ContentLoadError";
 
 // Provide a safe icon renderer
 const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) => {
@@ -41,7 +42,7 @@ const Index = () => {
   });
 
   // Fetch Categories
-  const { data: categories, isLoading: catsLoading } = useQuery({
+  const { data: categories, isLoading: catsLoading, isError: catsError } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
       const response = await fetchStrapi("categories", { populate: "*" });
@@ -58,7 +59,7 @@ const Index = () => {
   });
 
   // Fetch Featured Products
-  const { data: featuredProducts, isLoading: prodsLoading } = useQuery({
+  const { data: featuredProducts, isLoading: prodsLoading, isError: prodsError } = useQuery({
     queryKey: ["featured-products"],
     queryFn: async () => {
       const response = await fetchStrapi("products", {
@@ -71,7 +72,7 @@ const Index = () => {
   });
 
   // Fetch Gallery for showcase
-  const { data: showcaseGallery, isLoading: galleryLoading } = useQuery({
+  const { data: showcaseGallery, isLoading: galleryLoading, isError: galleryError } = useQuery({
     queryKey: ["gallery-showcase"],
     queryFn: async () => {
       const response = await fetchStrapi("galleries", { "pagination[limit]": 6, "populate": "*" });
@@ -99,7 +100,7 @@ const Index = () => {
         </div>
         <h1 className="text-3xl font-bold mb-4 font-display">Connection Error</h1>
         <p className="text-muted-foreground max-w-md mb-8 leading-relaxed">
-          We couldn't connect to the content server. Please ensure the Strapi CMS is running at <code className="bg-background px-2 py-1 rounded">http://localhost:1337</code> and refresh the page.
+          We couldn't connect to the content server at <code className="bg-background px-2 py-1 rounded">{new URL(STRAPI_URL).host}</code>. Check the frontend environment configuration and refresh the page.
         </p>
         <button 
           onClick={() => window.location.reload()}
@@ -189,6 +190,10 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {catsLoading ? (
               Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)
+            ) : catsError ? (
+              <div className="col-span-full">
+                <ContentLoadError message="Featured categories could not be loaded." />
+              </div>
             ) : categories?.map((cat: any, i: number) => (
               <Link
                 key={cat.name}
@@ -230,6 +235,10 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {prodsLoading ? (
               Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)
+            ) : prodsError ? (
+              <div className="col-span-full">
+                <ContentLoadError message="Featured products could not be loaded." />
+              </div>
             ) : featuredProducts?.map((product: any) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -353,6 +362,10 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {galleryLoading ? (
               Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)
+            ) : galleryError ? (
+              <div className="col-span-full">
+                <ContentLoadError message="Gallery images could not be loaded." />
+              </div>
             ) : showcaseGallery?.map((img: string, i: number) => (
               <div key={i} className="group relative overflow-hidden rounded-2xl aspect-square">
                 <img src={img} alt={`Showcase ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />

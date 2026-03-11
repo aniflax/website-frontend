@@ -34,6 +34,17 @@ This project is built using:
     npm run dev
     ```
 
+### Environment
+
+Create a `.env` file from `.env.example` and set:
+
+```sh
+VITE_STRAPI_URL=https://dreams-cms.onrender.com
+VITE_STRAPI_TOKEN=
+```
+
+For Vercel production, configure `VITE_STRAPI_URL` in the Vercel dashboard to point at the Render Strapi backend.
+
 ## Project Structure
 
 - `src/assets/`: Static assets like images and logos.

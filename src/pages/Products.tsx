@@ -5,6 +5,7 @@ import ProductCard from "@/components/ProductCard";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { fetchStrapi, mapStrapiProduct } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
+import ContentLoadError from "@/components/ContentLoadError";
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,7 +14,7 @@ const Products = () => {
   const header = useScrollAnimation();
 
   // Fetch Products
-  const { data: products, isLoading: productsLoading } = useQuery({
+  const { data: products, isLoading: productsLoading, isError: productsError } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       const response = await fetchStrapi("products", { "populate": "*" });
@@ -23,7 +24,7 @@ const Products = () => {
   });
 
   // Fetch Categories
-  const { data: categories, isLoading: categoriesLoading } = useQuery({
+  const { data: categories, isLoading: categoriesLoading, isError: categoriesError } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
       const response = await fetchStrapi("categories");
@@ -66,6 +67,8 @@ const Products = () => {
               Array.from({ length: 5 }).map((_, i) => (
                 <Skeleton key={i} className="h-10 w-24 rounded-xl" />
               ))
+            ) : categoriesError ? (
+              <ContentLoadError message="Product categories could not be loaded." />
             ) : (
               categories?.map((cat: string) => (
                 <button
@@ -89,6 +92,10 @@ const Products = () => {
               Array.from({ length: 8 }).map((_, i) => (
                 <Skeleton key={i} className="aspect-square rounded-2xl w-full" />
               ))
+            ) : productsError ? (
+              <div className="col-span-full">
+                <ContentLoadError message="Products could not be loaded." />
+              </div>
             ) : (
               filtered.map((product: any) => (
                 <ProductCard key={product.id} product={product} />

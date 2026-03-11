@@ -1,4 +1,17 @@
-export const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://127.0.0.1:1337";
+const normalizeBaseUrl = (value: string) => value.replace(/\/+$/, "");
+const DEFAULT_STRAPI_URL = "https://dreams-cms.onrender.com";
+
+const resolveStrapiUrl = () => {
+  const configuredUrl = import.meta.env.VITE_STRAPI_URL?.trim();
+
+  if (configuredUrl) {
+    return normalizeBaseUrl(configuredUrl);
+  }
+
+  return DEFAULT_STRAPI_URL;
+};
+
+export const STRAPI_URL = resolveStrapiUrl();
 export const STRAPI_TOKEN = import.meta.env.VITE_STRAPI_TOKEN || "";
 
 /**
@@ -14,16 +27,22 @@ export const getStrapiURL = (path: string | undefined | null) => {
  * Generic fetcher for Strapi API
  */
 export const fetchStrapi = async (endpoint: string, params: Record<string, any> = {}) => {
-  const url = new URL(`${STRAPI_URL}/api/${endpoint}`);
+  const url = new URL(`${STRAPI_URL}/api/${endpoint.replace(/^\/+/, "")}`);
   
   // Handle parameters
   Object.keys(params).forEach((key) => {
-    if (Array.isArray(params[key])) {
-      params[key].forEach((val: string, index: number) => {
-        url.searchParams.append(`${key}[${index}]`, val);
+    const value = params[key];
+
+    if (value === undefined || value === null || value === "") {
+      return;
+    }
+
+    if (Array.isArray(value)) {
+      value.forEach((val: string, index: number) => {
+        url.searchParams.append(`${key}[${index}]`, String(val));
       });
     } else {
-      url.searchParams.append(key, params[key]);
+      url.searchParams.append(key, String(value));
     }
   });
 
@@ -42,12 +61,16 @@ export const fetchStrapi = async (endpoint: string, params: Record<string, any> 
 
   try {
     console.log(`Fetching from Strapi: ${url.toString()}`);
-    const response = await fetch(url.toString(), { headers });
+    const response = await fetch(url.toString(), {
+      headers,
+      cache: "no-store",
+      mode: "cors",
+    });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       console.error(`Strapi API Error: ${response.status} ${response.statusText}`, errorData);
-      throw new Error(`Strapi API Error: ${response.statusText}`);
+      throw new Error(`Strapi API Error: ${response.status} ${response.statusText}`);
     }
 
     return response.json();
