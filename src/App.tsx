@@ -17,9 +17,9 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 2,
+      retry: 1,
       staleTime: 60 * 1000,
-      refetchOnMount: true,
+      refetchOnMount: "always",
       refetchOnReconnect: true,
     },
   },
@@ -35,6 +35,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/collections" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/gallery" element={<Gallery />} />

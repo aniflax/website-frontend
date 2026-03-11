@@ -1,5 +1,7 @@
 const normalizeBaseUrl = (value: string) => value.replace(/\/+$/, "");
 const DEFAULT_STRAPI_URL = "https://dreams-cms.onrender.com";
+const STRAPI_REQUEST_TIMEOUT_MS = 15000;
+const STRAPI_MAX_RETRIES = 4;
 
 const resolveStrapiUrl = () => {
   const configuredUrl = import.meta.env.VITE_STRAPI_URL?.trim();
@@ -13,6 +15,14 @@ const resolveStrapiUrl = () => {
 
 export const STRAPI_URL = resolveStrapiUrl();
 export const STRAPI_TOKEN = import.meta.env.VITE_STRAPI_TOKEN || "";
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const isRetriableStatus = (status: number) =>
+  [408, 425, 429, 500, 502, 503, 504].includes(status);
+
+const isRetriableError = (error: unknown) =>
+  error instanceof TypeError || (error instanceof DOMException && error.name === "AbortError");
 
 /**
  * Helper to get the full Strapi URL for media
@@ -59,25 +69,47 @@ export const fetchStrapi = async (endpoint: string, params: Record<string, any> 
     headers["Authorization"] = `Bearer ${STRAPI_TOKEN}`;
   }
 
-  try {
-    console.log(`Fetching from Strapi: ${url.toString()}`);
-    const response = await fetch(url.toString(), {
-      headers,
-      cache: "no-store",
-      mode: "cors",
-    });
+  console.log(`Fetching from Strapi: ${url.toString()}`);
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error(`Strapi API Error: ${response.status} ${response.statusText}`, errorData);
-      throw new Error(`Strapi API Error: ${response.status} ${response.statusText}`);
+  for (let attempt = 0; attempt <= STRAPI_MAX_RETRIES; attempt += 1) {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), STRAPI_REQUEST_TIMEOUT_MS);
+
+    try {
+      const response = await fetch(url.toString(), {
+        headers,
+        cache: "no-store",
+        mode: "cors",
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+
+        if (attempt < STRAPI_MAX_RETRIES && isRetriableStatus(response.status)) {
+          await sleep(Math.min(1000 * 2 ** attempt, 8000));
+          continue;
+        }
+
+        console.error(`Strapi API Error: ${response.status} ${response.statusText}`, errorData);
+        throw new Error(`Strapi API Error: ${response.status} ${response.statusText}`);
+      }
+
+      return response.json();
+    } catch (error) {
+      if (attempt < STRAPI_MAX_RETRIES && isRetriableError(error)) {
+        await sleep(Math.min(1000 * 2 ** attempt, 8000));
+        continue;
+      }
+
+      console.error("Failed to connect to Strapi:", error);
+      throw error;
+    } finally {
+      window.clearTimeout(timeoutId);
     }
-
-    return response.json();
-  } catch (error) {
-    console.error("Failed to connect to Strapi:", error);
-    throw error;
   }
+
+  throw new Error("Strapi API Error: Request retries exhausted");
 };
 
 export const extractTextFromBlocks = (blocks: any) => {
