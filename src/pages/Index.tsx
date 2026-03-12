@@ -41,7 +41,7 @@ const Index = () => {
   const { data: pageData, isLoading: pageLoading, isError: pageError } = useQuery({
     queryKey: ["homepage"],
     queryFn: async () => {
-      const response = await fetchStrapi("homepage", { populate: ["whyChoose", "testimonials", "featuredVideos"] });
+      const response = await fetchStrapi("homepage", { populate: ["heroImage", "whyChoose", "testimonials", "featuredVideos"] });
       return mapHomepage(response);
     },
     retry: 1
@@ -89,7 +89,7 @@ const Index = () => {
     }
   });
 
-  const { whyChoose, testimonials, featuredVideos } = pageData || {};
+  const { heroImage, whyChoose, testimonials, featuredVideos } = pageData || {};
 
   // Helper to convert YouTube URL to embed URL
   const getEmbedUrl = (url: string) => {
@@ -126,7 +126,7 @@ const Index = () => {
       {/* Hero */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={showroomImage} alt="Showroom" className="w-full h-full object-cover" />
+          <img src={heroImage} alt="Showroom" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/30 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent opacity-30" />
         </div>
