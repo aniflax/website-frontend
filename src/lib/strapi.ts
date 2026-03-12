@@ -166,14 +166,8 @@ export const mapHomepage = (data: any) => {
 export const mapAboutPage = (data: any) => {
   const attrs = data?.data?.attributes || data?.data || {};
   return {
-    heroTitle: attrs.heroTitle,
-    heroSubtitle: attrs.heroSubtitle,
     heroImage: getStrapiURL(attrs.heroImage?.data?.attributes?.url || attrs.heroImage?.url),
-    storyTitle: attrs.storyTitle,
-    storyText: extractTextFromBlocks(attrs.storyText),
-    storyImage: getStrapiURL(attrs.storyImage?.data?.attributes?.url || attrs.storyImage?.url),
-    stats: attrs.stats || [],
-    values: attrs.values || []
+    storyImage: getStrapiURL(attrs.storyImage?.data?.attributes?.url || attrs.storyImage?.url)
   };
 };
 
