@@ -296,35 +296,6 @@ const Index = () => {
         </section>
       )}
 
-      {/* Why Choose */}
-      <section className="section-padding">
-        <div className="container mx-auto">
-          <div
-            ref={why.ref}
-            className={`text-center mb-12 transition-all duration-700 ${why.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Our Promise</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold">Why Choose Dreams Furniture</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pageLoading ? (
-              Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
-            ) : pageError ? (
-              <div className="col-span-full">
-                <ContentLoadError message="Homepage highlights could not be loaded." />
-              </div>
-            ) : whyChoose?.map(({ icon, title, desc }: any, i: number) => (
-              <div key={title} className="glass-card-hover p-8 text-center" style={{ transitionDelay: `${i * 100}ms` }}>
-                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
-                  <DynamicIcon name={icon || "star"} size={28} className="text-primary" />
-                </div>
-                <h3 className="font-display text-lg font-semibold mb-2">{title}</h3>
-                <p className="text-muted-foreground text-sm">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Gallery Showcase */}
       <section className="section-padding">
         <div className="container mx-auto">
@@ -352,6 +323,35 @@ const Index = () => {
             <Link to="/gallery" className="btn-outline-glass inline-flex items-center gap-2">
               View Full Gallery <ArrowRight size={18} />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose */}
+      <section className="section-padding">
+        <div className="container mx-auto">
+          <div
+            ref={why.ref}
+            className={`text-center mb-12 transition-all duration-700 ${why.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Our Promise</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold">Why Choose Dreams Furniture</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {pageLoading ? (
+              Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
+            ) : pageError ? (
+              <div className="col-span-full">
+                <ContentLoadError message="Homepage highlights could not be loaded." />
+              </div>
+            ) : whyChoose?.map(({ icon, title, desc }: any, i: number) => (
+              <div key={title} className="glass-card-hover p-8 text-center" style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <DynamicIcon name={icon || "star"} size={28} className="text-primary" />
+                </div>
+                <h3 className="font-display text-lg font-semibold mb-2">{title}</h3>
+                <p className="text-muted-foreground text-sm">{desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
