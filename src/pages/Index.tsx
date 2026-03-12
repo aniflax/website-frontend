@@ -325,37 +325,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="section-padding bg-secondary/30">
-        <div className="container mx-auto">
-          <div
-            ref={test.ref}
-            className={`text-center mb-12 transition-all duration-700 ${test.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Testimonials</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold">What Our Customers Say</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {pageLoading ? (
-              Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
-            ) : pageError ? (
-              <div className="col-span-full">
-                <ContentLoadError message="Testimonials could not be loaded." />
-              </div>
-            ) : testimonials?.map((t: any, i: number) => (
-              <div key={i} className="glass-card p-8">
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: t.rating || 5 }).map((_, j) => (
-                    <Star key={j} size={16} className="text-primary fill-primary" />
-                  ))}
-                </div>
-                <p className="text-foreground/80 mb-6 leading-relaxed italic">"{t.text}"</p>
-                <p className="font-display font-semibold text-foreground">{t.name}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Gallery Showcase */}
       <section className="section-padding">
         <div className="container mx-auto">
@@ -383,6 +352,37 @@ const Index = () => {
             <Link to="/gallery" className="btn-outline-glass inline-flex items-center gap-2">
               View Full Gallery <ArrowRight size={18} />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="section-padding bg-secondary/30">
+        <div className="container mx-auto">
+          <div
+            ref={test.ref}
+            className={`text-center mb-12 transition-all duration-700 ${test.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Testimonials</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold">What Our Customers Say</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {pageLoading ? (
+              Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
+            ) : pageError ? (
+              <div className="col-span-full">
+                <ContentLoadError message="Testimonials could not be loaded." />
+              </div>
+            ) : testimonials?.map((t: any, i: number) => (
+              <div key={i} className="glass-card p-8">
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: t.rating || 5 }).map((_, j) => (
+                    <Star key={j} size={16} className="text-primary fill-primary" />
+                  ))}
+                </div>
+                <p className="text-foreground/80 mb-6 leading-relaxed italic">"{t.text}"</p>
+                <p className="font-display font-semibold text-foreground">{t.name}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
