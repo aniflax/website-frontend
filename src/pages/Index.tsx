@@ -20,7 +20,7 @@ const HERO_EYEBROW = "Premium Furniture Collection";
 const HERO_TITLE = "Dreams Furnitures";
 const HERO_SUBTITLE = "Transform your living spaces with handcrafted luxury furniture that speaks elegance and comfort.";
 const SHOWROOM_SUBTITLE = "Experience the luxury in person. Walk through our curated collections and find the perfect pieces for your home.";
-const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/RQfb4XZZevJR1qqC8";
+const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Dreams+Furniture+-Branded+Furniture+Showroom+in+muzaffarpur+%7C+Best+Furniture+Shop+in+muzaffarpur/@26.1180634,85.3960641,17z/data=!3m1!4b1!4m6!3m5!1s0x39ed11dc964fe957:0x4074c99300c9628!8m2!3d26.1180634!4d85.3960641!16s%2Fg%2F11jb8lt1zn?entry=ttu&g_ep=EgoyMDI2MDMxMC4wIKXMDSoASAFQAw%3D%3D";
 
 const Index = () => {
   const [playingVideos, setPlayingVideos] = useState<Record<number, boolean>>({});
