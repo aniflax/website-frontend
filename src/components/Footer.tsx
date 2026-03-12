@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Youtube, MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
+import { Facebook, Instagram, Youtube, MapPin, Phone, Mail } from "lucide-react";
 import logo from "@/assets/Dreams logo.png";
 
 const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/RQfb4XZZevJR1qqC8";
@@ -74,30 +74,16 @@ const Footer = () => {
           {/* Map */}
           <div>
             <h4 className="font-display text-lg font-semibold mb-4 text-foreground">Find Us</h4>
-            <a
-              href={GOOGLE_MAPS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block rounded-2xl border border-border bg-gradient-to-br from-primary/10 via-background to-background p-5 transition-all duration-300 hover:border-primary/40 hover:shadow-lg"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md">
-                      <MapPin size={18} className="fill-current" />
-                    </div>
-                    <div>
-                      <p className="font-display text-base font-semibold text-foreground">Dreams Furniture</p>
-                      <p className="text-sm text-muted-foreground">Muzaffarpur showroom location</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Open the highlighted location in Google Maps.
-                  </p>
-                </div>
-                <ArrowUpRight size={18} className="text-primary transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <div className="rounded-xl overflow-hidden border border-border h-40 bg-secondary/30 relative">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.85),transparent_28%),linear-gradient(135deg,rgba(232,236,240,0.95),rgba(244,246,248,0.9))]" />
+              <div className="absolute inset-0 opacity-40" style={{ backgroundImage: "linear-gradient(rgba(148,163,184,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.2) 1px, transparent 1px)", backgroundSize: "26px 26px" }} />
+              <div className="absolute left-[22%] top-[28%] h-10 w-16 rounded-full bg-background/90 shadow-sm" />
+              <div className="absolute right-[18%] bottom-[22%] h-12 w-20 rounded-full bg-background/80 shadow-sm" />
+              <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full bg-background/95 px-3 py-2 shadow-lg border border-primary/20">
+                <MapPin size={16} className="text-primary fill-current shrink-0" />
+                <span className="text-xs font-medium text-foreground">Dreams Furniture</span>
               </div>
-            </a>
+            </div>
             <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex text-sm text-primary hover:text-primary/80 transition-colors">
               View Dreams Furniture on Google Maps
             </a>
