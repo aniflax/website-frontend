@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Facebook, Instagram, Youtube, MapPin, Phone, Mail } from "lucide-react";
 import logo from "@/assets/Dreams logo.png";
 
+const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Dreams+Furniture+-Branded+Furniture+Showroom+in+muzaffarpur+%7C+Best+Furniture+Shop+in+muzaffarpur/@26.1180634,85.3960641,17z/data=!3m1!4b1!4m6!3m5!1s0x39ed11dc964fe957:0x4074c99300c9628!8m2!3d26.1180634!4d85.3960641!16s%2Fg%2F11jb8lt1zn?entry=ttu&g_ep=EgoyMDI2MDMxMC4wIKXMDSoASAFQAw%3D%3D";
+
 const Footer = () => {
   return (
     <footer className="glass-footer">
@@ -82,8 +84,10 @@ const Footer = () => {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Dreams Furniture Location" />
-              
             </div>
+            <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex text-sm text-primary hover:text-primary/80 transition-colors">
+              Open in Google Maps
+            </a>
           </div>
         </div>
 
