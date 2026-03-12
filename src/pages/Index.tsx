@@ -5,9 +5,10 @@ import * as Icons from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "@/components/ProductCard";
-import { STRAPI_URL, fetchStrapi, mapStrapiProduct, mapHomepage, getStrapiURL } from "@/lib/strapi";
+import { fetchStrapi, mapStrapiProduct, mapHomepage, getStrapiURL } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
 import ContentLoadError from "@/components/ContentLoadError";
+import showroomImage from "@/assets/showroom.jpg";
 
 // Provide a safe icon renderer
 const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) => {
@@ -15,6 +16,11 @@ const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) =
   const IconComponent = (Icons as any)[name.charAt(0).toUpperCase() + name.slice(1).replace(/-([a-z])/g, (g) => g[1].toUpperCase())] || Icons.HelpCircle;
   return <IconComponent {...props} />;
 };
+
+const HERO_EYEBROW = "Premium Furniture Collection";
+const HERO_TITLE = "Dreams Furnitures";
+const HERO_SUBTITLE = "Transform your living spaces with handcrafted luxury furniture that speaks elegance and comfort.";
+const SHOWROOM_SUBTITLE = "Experience the luxury in person. Walk through our curated collections and find the perfect pieces for your home.";
 
 const Index = () => {
   const [playingVideos, setPlayingVideos] = useState<Record<number, boolean>>({});
@@ -35,7 +41,7 @@ const Index = () => {
   const { data: pageData, isLoading: pageLoading, isError: pageError } = useQuery({
     queryKey: ["homepage"],
     queryFn: async () => {
-      const response = await fetchStrapi("homepage", { populate: ["heroImage", "whyChoose", "testimonials", "featuredVideos"] });
+      const response = await fetchStrapi("homepage", { populate: ["whyChoose", "testimonials", "featuredVideos"] });
       return mapHomepage(response);
     },
     retry: 1
@@ -83,36 +89,7 @@ const Index = () => {
     }
   });
 
-  if (pageLoading) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center">
-        <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-muted-foreground animate-pulse">Loading luxury furniture experience...</p>
-      </div>
-    );
-  }
-
-  if (pageError) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-secondary/20">
-        <div className="w-20 h-20 bg-destructive/10 text-destructive rounded-full flex items-center justify-center mb-6">
-          <Icons.AlertCircle size={40} />
-        </div>
-        <h1 className="text-3xl font-bold mb-4 font-display">Connection Error</h1>
-        <p className="text-muted-foreground max-w-md mb-8 leading-relaxed">
-          We couldn't connect to the content server at <code className="bg-background px-2 py-1 rounded">{new URL(STRAPI_URL).host}</code>. Check the frontend environment configuration and refresh the page.
-        </p>
-        <button 
-          onClick={() => window.location.reload()}
-          className="btn-primary-glass flex items-center gap-2"
-        >
-          <Icons.RefreshCw size={18} /> Retry Connection
-        </button>
-      </div>
-    );
-  }
-
-  const { heroTitle, heroSubtitle, heroImage, whyChoose, testimonials, featuredVideos } = pageData || {};
+  const { whyChoose, testimonials, featuredVideos } = pageData || {};
 
   // Helper to convert YouTube URL to embed URL
   const getEmbedUrl = (url: string) => {
@@ -149,7 +126,7 @@ const Index = () => {
       {/* Hero */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="Showroom" className="w-full h-full object-cover" />
+          <img src={showroomImage} alt="Showroom" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/30 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent opacity-30" />
         </div>
@@ -157,11 +134,11 @@ const Index = () => {
           ref={hero.ref}
           className={`relative z-10 container mx-auto px-4 lg:px-8 max-w-3xl transition-all duration-1000 ${hero.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
           
-          <p className="text-primary uppercase tracking-[0.3em] text-sm font-medium mb-4">Premium Furniture Collection</p>
-          <h1 className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6" dangerouslySetInnerHTML={{ __html: heroTitle?.replace("Dreams", "<span class='gold-text'>Dreams</span>") || "Crafting <span class='gold-text'>Dreams</span> Into Reality" }}>
+          <p className="text-primary uppercase tracking-[0.3em] text-sm font-medium mb-4">{HERO_EYEBROW}</p>
+          <h1 className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6" dangerouslySetInnerHTML={{ __html: HERO_TITLE.replace("Dreams", "<span class='gold-text'>Dreams</span>") }}>
           </h1>
           <p className="text-foreground/70 text-lg md:text-xl mb-10 leading-relaxed max-w-xl">
-            {heroSubtitle}
+            {HERO_SUBTITLE}
           </p>
           <div className="flex flex-wrap gap-4">
             <Link to="/products" className="btn-primary-glass flex items-center gap-2">
@@ -252,7 +229,25 @@ const Index = () => {
       </section>
 
       {/* Featured Videos */}
-      {featuredVideos && featuredVideos.length > 0 && (
+      {pageLoading ? (
+        <section className="section-padding">
+          <div className="container mx-auto">
+            <div className="text-center mb-12">
+              <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Watch & Experience</p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold">Featured Videos</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {Array.from({ length: 2 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)}
+            </div>
+          </div>
+        </section>
+      ) : pageError ? (
+        <section className="section-padding">
+          <div className="container mx-auto">
+            <ContentLoadError message="Featured videos could not be loaded." />
+          </div>
+        </section>
+      ) : featuredVideos && featuredVideos.length > 0 && (
         <section className="section-padding">
           <div className="container mx-auto">
             <div className="text-center mb-12">
@@ -312,7 +307,13 @@ const Index = () => {
             <h2 className="font-display text-4xl md:text-5xl font-bold">Why Choose Dreams Furniture</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyChoose?.map(({ icon, title, desc }: any, i: number) => (
+            {pageLoading ? (
+              Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
+            ) : pageError ? (
+              <div className="col-span-full">
+                <ContentLoadError message="Homepage highlights could not be loaded." />
+              </div>
+            ) : whyChoose?.map(({ icon, title, desc }: any, i: number) => (
               <div key={title} className="glass-card-hover p-8 text-center" style={{ transitionDelay: `${i * 100}ms` }}>
                 <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
                   <DynamicIcon name={icon || "star"} size={28} className="text-primary" />
@@ -335,7 +336,13 @@ const Index = () => {
             <h2 className="font-display text-4xl md:text-5xl font-bold">What Our Customers Say</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials?.map((t: any, i: number) => (
+            {pageLoading ? (
+              Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
+            ) : pageError ? (
+              <div className="col-span-full">
+                <ContentLoadError message="Testimonials could not be loaded." />
+              </div>
+            ) : testimonials?.map((t: any, i: number) => (
               <div key={i} className="glass-card p-8">
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: t.rating || 5 }).map((_, j) => (
@@ -384,7 +391,7 @@ const Index = () => {
       {/* CTA */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="Showroom" className="w-full h-full object-cover" />
+          <img src={showroomImage} alt="Showroom" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-background/70" />
         </div>
         <div
@@ -394,7 +401,7 @@ const Index = () => {
             Visit Our <span className="gold-text">Showroom</span>
           </h2>
           <p className="text-foreground/70 text-lg mb-8">
-            Experience the luxury in person. Walk through our curated collections and find the perfect pieces for your home.
+            {SHOWROOM_SUBTITLE}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
