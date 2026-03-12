@@ -28,7 +28,7 @@ const Navbar = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "glass-nav shadow-lg bg-background/80" : "backdrop-blur-md bg-background/40 border-b border-glass-border"}`}>
       <div className="container mx-auto flex items-center justify-between h-20 px-4 lg:px-8">
         <Link to="/" className="flex items-center gap-3 group">
-          <img src={logo} alt="Dreams Furniture" className="h-16 w-auto transition-transform duration-300 group-hover:scale-105" />
+          <img src={logo} alt="Dreams Furniture" className="h-[4.5rem] w-auto transition-transform duration-300 group-hover:scale-105" />
         </Link>
 
         {/* Desktop Nav */}
