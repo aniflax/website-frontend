@@ -8,7 +8,6 @@ import ProductCard from "@/components/ProductCard";
 import { fetchStrapi, mapStrapiProduct, mapHomepage, getStrapiURL } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
 import ContentLoadError from "@/components/ContentLoadError";
-import showroomImage from "@/assets/showroom.jpg";
 
 // Provide a safe icon renderer
 const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) => {
@@ -391,7 +390,7 @@ const Index = () => {
       {/* CTA */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={showroomImage} alt="Showroom" className="w-full h-full object-cover" />
+          <img src={heroImage} alt="Showroom" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-background/70" />
         </div>
         <div
