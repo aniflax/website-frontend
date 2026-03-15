@@ -3,9 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import * as Icons from "lucide-react";
 import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
-import ContentLoadError from "@/components/ContentLoadError";
 import { Skeleton } from "@/components/ui/skeleton";
-import { fetchStrapi, getStrapiURL, mapBulkOrderPage, mapStrapiGallery, mapStrapiProduct } from "@/lib/strapi";
+import { fetchStrapi, mapBulkOrderPage, mapStrapiGallery, mapStrapiProduct } from "@/lib/strapi";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const WHATSAPP_NUMBER = "919801980316";
@@ -160,13 +159,6 @@ const defaultProcessSteps = [
   },
 ];
 
-const defaultHero = {
-  title: "Bulk Furniture Solutions for Commercial and Residential Projects",
-  subtitle:
-    "From hospitality spaces and offices to developer projects and institutional setups, Dreams Furniture delivers premium furniture in volume with dependable execution.",
-  buttonText: "Request Bulk Quote",
-};
-
 const defaultCta = {
   title: "Planning a Bulk Furniture Project?",
   description:
@@ -189,7 +181,6 @@ const DynamicIcon = ({
 };
 
 const BulkOrder = () => {
-  const hero = useScrollAnimation();
   const serve = useScrollAnimation();
   const categories = useScrollAnimation();
   const whyChoose = useScrollAnimation();
@@ -209,19 +200,24 @@ const BulkOrder = () => {
     message: "",
   });
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["bulk-order-page"],
     queryFn: async () => {
-      const response = await fetchStrapi("bulk-order-page", {
-        "populate[heroImage]": "*",
-        "populate[whoWeServe][populate][icon]": "*",
-        "populate[furnitureCategories][populate][image]": "*",
-        "populate[whyChooseUs]": "*",
-        "populate[processSteps]": "*",
-        "populate[galleryImages]": "*",
-      });
+      try {
+        const response = await fetchStrapi("bulk-order-page", {
+          "populate[heroImage]": "*",
+          "populate[whoWeServe][populate][icon]": "*",
+          "populate[furnitureCategories][populate][image]": "*",
+          "populate[whyChooseUs]": "*",
+          "populate[processSteps]": "*",
+          "populate[galleryImages]": "*",
+        });
 
-      return mapBulkOrderPage(response);
+        return mapBulkOrderPage(response);
+      } catch (error) {
+        console.warn("Bulk Order page entry unavailable in Strapi. Using fallback content.", error);
+        return null;
+      }
     },
   });
 
@@ -271,10 +267,6 @@ const BulkOrder = () => {
     );
 
     return {
-      heroTitle: data?.heroTitle || defaultHero.title,
-      heroSubtitle: data?.heroSubtitle || defaultHero.subtitle,
-      heroButtonText: data?.heroButtonText || defaultHero.buttonText,
-      heroImage: data?.heroImage || pickImage(0) || getStrapiURL(undefined),
       whoWeServe,
       furnitureCategories,
       whyChooseUs: data?.whyChooseUs?.length ? data.whyChooseUs : defaultWhyChooseUs,
@@ -329,8 +321,6 @@ const BulkOrder = () => {
     element?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const heroImage = resolvedData.heroImage;
-  const hasHero = Boolean(resolvedData.heroTitle || resolvedData.heroSubtitle || resolvedData.heroImage);
   const hasWhoWeServe = Boolean(resolvedData.whoWeServe?.length);
   const hasCategories = Boolean(resolvedData.furnitureCategories?.length);
   const hasWhyChooseUs = Boolean(resolvedData.whyChooseUs?.length);
@@ -340,50 +330,21 @@ const BulkOrder = () => {
 
   return (
     <div className="min-h-screen pt-24">
-      {isError && (
-        <div className="container mx-auto px-4 pt-6">
-          <ContentLoadError message="Bulk Order page content could not be loaded." />
-        </div>
-      )}
-
       {isLoading ? (
-        <section className="relative overflow-hidden px-4 sm:px-6 lg:px-8 pb-10">
+        <section className="section-padding">
           <div className="container mx-auto">
-            <Skeleton className="h-[72vh] rounded-[2rem] w-full" />
-          </div>
-        </section>
-      ) : hasHero && (
-        <section className="relative overflow-hidden px-4 sm:px-6 lg:px-8 pb-10">
-          <div className="container mx-auto">
-            <div className="relative min-h-[72vh] overflow-hidden rounded-[2rem] border border-glass-border">
-              <img src={heroImage} alt="Bulk order furniture" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-background/30" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,hsl(38_70%_50%_/_0.18),transparent_35%)]" />
-              <div
-                ref={hero.ref}
-                className={`relative z-10 flex min-h-[72vh] max-w-3xl flex-col justify-center px-8 py-16 md:px-14 transition-all duration-1000 ${
-                  hero.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                }`}
-              >
-                <p className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-primary">Bulk Furniture Solutions</p>
-                <h1 className="mb-6 font-display text-5xl font-bold leading-tight md:text-7xl">
-                  {resolvedData.heroTitle}
-                </h1>
-                {resolvedData.heroSubtitle && (
-                  <p className="mb-10 max-w-2xl text-lg leading-relaxed text-foreground/75 md:text-xl">
-                    {resolvedData.heroSubtitle}
-                  </p>
-                )}
-                <div className="flex flex-wrap gap-4">
-                  <button type="button" onClick={scrollToInquiry} className="btn-primary-glass inline-flex items-center gap-2">
-                    {resolvedData.heroButtonText} <ArrowRight size={18} />
-                  </button>
-                </div>
-              </div>
+            <div className="mb-12 max-w-3xl">
+              <Skeleton className="mb-3 h-5 w-48" />
+              <Skeleton className="h-12 w-full max-w-2xl" />
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <Skeleton key={index} className="h-72 rounded-2xl w-full" />
+              ))}
             </div>
           </div>
         </section>
-      )}
+      ) : null}
 
       {hasWhoWeServe && (
         <section className="section-padding">
