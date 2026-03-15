@@ -179,3 +179,43 @@ export const mapContactPage = (data: any) => {
     contactInfo: attrs.contactInfo || []
   };
 };
+
+const mapMedia = (media: any) => {
+  const asset = media?.data?.attributes || media?.attributes || media?.data || media;
+  return asset?.url ? getStrapiURL(asset.url) : undefined;
+};
+
+export const mapBulkOrderPage = (data: any) => {
+  const attrs = data?.data?.attributes || data?.data || {};
+
+  return {
+    heroTitle: attrs.heroTitle,
+    heroSubtitle: attrs.heroSubtitle,
+    heroImage: mapMedia(attrs.heroImage),
+    heroButtonText: attrs.heroButtonText,
+    whoWeServe: (attrs.whoWeServe || []).map((item: any) => ({
+      title: item.title,
+      description: item.description,
+      icon: mapMedia(item.icon),
+    })),
+    furnitureCategories: (attrs.furnitureCategories || []).map((item: any) => ({
+      title: item.title,
+      description: item.description,
+      image: mapMedia(item.image),
+    })),
+    whyChooseUs: (attrs.whyChooseUs || []).map((item: any) => ({
+      title: item.title,
+      description: item.description || item.desc,
+      icon: item.icon,
+    })),
+    processSteps: (attrs.processSteps || []).map((item: any) => ({
+      stepTitle: item.stepTitle,
+      stepDescription: item.stepDescription,
+    })),
+    galleryImages: (attrs.galleryImages?.data || attrs.galleryImages || []).map((item: any) =>
+      getStrapiURL(item?.attributes?.url || item?.url)
+    ),
+    ctaTitle: attrs.ctaTitle,
+    ctaDescription: attrs.ctaDescription,
+  };
+};
