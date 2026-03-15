@@ -205,7 +205,6 @@ const BulkOrder = () => {
     queryFn: async () => {
       try {
         const response = await fetchStrapi("bulk-order-page", {
-          "populate[heroImage]": "*",
           "populate[whoWeServe][populate][icon]": "*",
           "populate[furnitureCategories][populate][image]": "*",
           "populate[whyChooseUs]": "*",

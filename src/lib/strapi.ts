@@ -189,10 +189,6 @@ export const mapBulkOrderPage = (data: any) => {
   const attrs = data?.data?.attributes || data?.data || {};
 
   return {
-    heroTitle: attrs.heroTitle,
-    heroSubtitle: attrs.heroSubtitle,
-    heroImage: mapMedia(attrs.heroImage),
-    heroButtonText: attrs.heroButtonText,
     whoWeServe: (attrs.whoWeServe || []).map((item: any) => ({
       title: item.title,
       description: item.description,
