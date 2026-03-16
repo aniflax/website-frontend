@@ -159,13 +159,14 @@
       90deg,
       #E9E07A 0%,
       #E9E07A 68%,
-      #F5EFA6 84%,
-      #D4B437 100%
+      #E8DED0 84%,
+      #F3EFE8 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   }
   .gold-border {
     border-image: var(--gold-gradient) 1;
