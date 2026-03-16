@@ -128,7 +128,7 @@ const Index = () => {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroImage} alt="Showroom" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-foreground/34 via-foreground/16 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent opacity-30" />
         </div>
         <div
