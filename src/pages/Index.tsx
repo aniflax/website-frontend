@@ -19,8 +19,6 @@ const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) =
 const HERO_EYEBROW = "Premium Furniture Collection";
 const HERO_TITLE = "Dreams Furnitures";
 const HERO_SUBTITLE = "Transform your living spaces with handcrafted luxury furniture that speaks elegance and comfort.";
-const SHOWROOM_SUBTITLE = "Experience the luxury in person. Walk through our curated collections and find the perfect pieces for your home.";
-const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Dreams+Furniture+-Branded+Furniture+Showroom+in+muzaffarpur+%7C+Best+Furniture+Shop+in+muzaffarpur/@26.1180634,85.3960641,17z/data=!3m1!4b1!4m6!3m5!1s0x39ed11dc964fe957:0x4074c99300c9628!8m2!3d26.1180634!4d85.3960641!16s%2Fg%2F11jb8lt1zn?entry=ttu&g_ep=EgoyMDI2MDMxMC4wIKXMDSoASAFQAw%3D%3D";
 const WHATSAPP_URL = "https://wa.me/919801980316?text=Hi%20Dreams%20Furniture%2C%20I%20want%20to%20enquire%20about%20your%20furniture";
 
 const Index = () => {
@@ -149,16 +147,9 @@ const Index = () => {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline-glass flex items-center gap-2">
+              className="btn-primary-glass flex items-center gap-2">
               <MessageCircle size={18} />
               WhatsApp Enquiry
-            </a>
-            <a
-              href={GOOGLE_MAPS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline-glass">
-              Visit Showroom
             </a>
           </div>
         </div>
