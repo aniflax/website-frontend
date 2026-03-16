@@ -142,14 +142,14 @@ const Index = () => {
             {HERO_SUBTITLE}
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link to="/products" className="btn-primary-glass flex items-center gap-2">
+            <Link to="/products" className="btn-liquid-glass flex items-center gap-2">
               Explore Collection <ArrowRight size={18} />
             </Link>
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary-glass flex items-center gap-2">
+              className="btn-liquid-glass flex items-center gap-2">
               <MessageCircle size={18} />
               WhatsApp Enquiry
             </a>

@@ -165,6 +165,67 @@
     box-shadow: 0 8px 32px hsl(38 70% 50% / 0.5);
     transform: translateY(-2px);
   }
+  .btn-liquid-glass {
+    @apply relative isolate overflow-hidden rounded-full px-8 py-3 font-semibold text-primary-foreground transition-all duration-500;
+    background:
+      linear-gradient(135deg, hsl(0 0% 100% / 0.22), hsl(0 0% 100% / 0.08)),
+      linear-gradient(180deg, hsl(216 19% 26% / 0.58), hsl(216 19% 26% / 0.34));
+    border: 1px solid hsl(0 0% 100% / 0.18);
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.35),
+      inset 0 -14px 28px hsl(0 0% 100% / 0.05),
+      0 18px 36px hsl(222 47% 11% / 0.28),
+      0 0 0 1px hsl(0 0% 100% / 0.06);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+  }
+  .btn-liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at 20% 20%, hsl(0 0% 100% / 0.42), transparent 34%),
+      radial-gradient(circle at 80% 30%, hsl(38 70% 60% / 0.18), transparent 28%),
+      linear-gradient(180deg, hsl(0 0% 100% / 0.18), hsl(0 0% 100% / 0.04));
+    opacity: 0.95;
+    transition: transform 500ms ease, opacity 500ms ease, filter 500ms ease;
+    z-index: -2;
+  }
+  .btn-liquid-glass::after {
+    content: "";
+    position: absolute;
+    inset: -35%;
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 30% 30%, hsl(0 0% 100% / 0.45), transparent 18%),
+      radial-gradient(circle at 68% 60%, hsl(38 80% 65% / 0.24), transparent 22%),
+      radial-gradient(circle at 55% 45%, hsl(210 40% 98% / 0.18), transparent 30%);
+    opacity: 0.75;
+    filter: blur(18px);
+    transform: translate3d(-10%, 0, 0) scale(1);
+    transition: transform 700ms ease, opacity 500ms ease, filter 500ms ease;
+    z-index: -1;
+  }
+  .btn-liquid-glass:hover {
+    border-color: hsl(0 0% 100% / 0.28);
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.45),
+      inset 0 -18px 34px hsl(0 0% 100% / 0.08),
+      0 24px 48px hsl(222 47% 11% / 0.34),
+      0 0 42px hsl(38 70% 58% / 0.18);
+    transform: translateY(-3px) scale(1.015);
+  }
+  .btn-liquid-glass:hover::before {
+    opacity: 1;
+    filter: saturate(120%);
+    transform: translateY(-2px);
+  }
+  .btn-liquid-glass:hover::after {
+    opacity: 0.95;
+    filter: blur(20px);
+    transform: translate3d(8%, -6%, 0) scale(1.08);
+  }
   .btn-outline-glass {
     @apply border border-primary/40 text-primary font-semibold px-8 py-3 rounded-xl transition-all duration-300 bg-transparent;
   }
