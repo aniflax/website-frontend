@@ -143,7 +143,38 @@
     transform: translateY(-4px);
   }
   .glass-nav {
-    @apply backdrop-blur-2xl bg-background/70 border-b border-glass-border;
+    @apply relative overflow-hidden border-b;
+    background:
+      linear-gradient(135deg, hsl(0 0% 100% / 0.2), hsl(0 0% 100% / 0.06)),
+      linear-gradient(180deg, hsl(216 19% 26% / 0.46), hsl(216 19% 26% / 0.26));
+    border-color: hsl(0 0% 100% / 0.14);
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.28),
+      inset 0 -10px 22px hsl(0 0% 100% / 0.04),
+      0 18px 42px hsl(222 47% 11% / 0.2);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+  }
+  .glass-nav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 12% 18%, hsl(0 0% 100% / 0.22), transparent 24%),
+      radial-gradient(circle at 82% 0%, hsl(38 75% 60% / 0.14), transparent 28%),
+      linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.08), transparent);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  .glass-nav::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.32), transparent);
+    pointer-events: none;
   }
   .glass-footer {
     @apply backdrop-blur-2xl bg-card/80 border-t border-glass-border;
