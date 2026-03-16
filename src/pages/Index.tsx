@@ -20,7 +20,7 @@ const HERO_EYEBROW = "Premium Furniture Collection";
 const HERO_TITLE = "Dreams Furnitures";
 const HERO_SUBTITLE = "Transform your living spaces with handcrafted luxury furniture that speaks elegance and comfort.";
 const SHOWROOM_SUBTITLE = "Experience the luxury in person. Walk through our curated collections and find the perfect pieces for your home.";
-const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/BxM9ok7utSTPzvmE6";
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/G9eQ6TEHkExFBARJ7";
 const WHATSAPP_URL = "https://wa.me/919801980316?text=Hi%20Dreams%20Furniture%2C%20I%20want%20to%20enquire%20about%20your%20furniture";
 
 const Index = () => {

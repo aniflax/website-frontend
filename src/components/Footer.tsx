@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Facebook, Instagram, Youtube, MapPin, Phone, Mail } from "lucide-react";
 import logo from "@/assets/Dreams logo.png";
 
-const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/BxM9ok7utSTPzvmE6";
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/G9eQ6TEHkExFBARJ7";
 
 const Footer = () => {
   return (

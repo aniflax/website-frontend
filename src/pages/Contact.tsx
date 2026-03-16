@@ -8,7 +8,7 @@ import { fetchStrapi, mapContactPage } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
 import ContentLoadError from "@/components/ContentLoadError";
 
-const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/BxM9ok7utSTPzvmE6";
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/G9eQ6TEHkExFBARJ7";
 
 // Provide a safe icon renderer
 const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) => {
