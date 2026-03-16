@@ -76,18 +76,16 @@ const Footer = () => {
           <div>
             <h4 className="font-display text-lg font-semibold mb-4 text-foreground">Find Us</h4>
             <div className="rounded-xl overflow-hidden border border-border h-40">
-              <a
-                href={GOOGLE_MAPS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-full w-full flex-col items-center justify-center gap-3 bg-secondary/20 px-4 text-center transition-colors duration-300 hover:bg-secondary/30"
-              >
-                <MapPin size={22} className="text-primary" />
-                <div>
-                  <p className="font-display text-lg font-semibold text-foreground">Dreams Furniture</p>
-                  <p className="mt-1 text-sm text-muted-foreground">Open our exact location in Google Maps</p>
-                </div>
-              </a>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3588.123456789!2d85.39!3d26.12!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDA3JzEyLjAiTiA4NcKwMjMnMjQuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Dreams Furniture Location"
+              />
             </div>
             <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex text-sm text-primary hover:text-primary/80 transition-colors">
               Open in Google Maps
