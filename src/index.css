@@ -155,7 +155,7 @@
     background-clip: text;
   }
   .hero-dreams-text {
-    background: linear-gradient(90deg, #8C5A2B, #D4A373, #6F4518);
+    background: linear-gradient(90deg, #f5efe6 0%, #d4b483 45%, #8f6a3b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
