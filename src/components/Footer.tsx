@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Youtube, MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import { Facebook, Instagram, Youtube, MapPin, Phone, Mail } from "lucide-react";
 import logo from "@/assets/Dreams logo.png";
 
 const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/BxM9ok7utSTPzvmE6";
@@ -75,24 +75,22 @@ const Footer = () => {
           {/* Map */}
           <div>
             <h4 className="font-display text-lg font-semibold mb-4 text-foreground">Find Us</h4>
-            <a
-              href={GOOGLE_MAPS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-card-hover flex h-40 flex-col justify-between rounded-xl p-5"
-            >
-              <div className="flex items-start justify-between gap-4">
+            <div className="rounded-xl overflow-hidden border border-border h-40">
+              <a
+                href={GOOGLE_MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-full w-full flex-col items-center justify-center gap-3 bg-secondary/20 px-4 text-center transition-colors duration-300 hover:bg-secondary/30"
+              >
+                <MapPin size={22} className="text-primary" />
                 <div>
-                  <p className="font-display text-xl font-semibold text-foreground">Dreams Furniture</p>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    Open the exact showroom location in Google Maps.
-                  </p>
+                  <p className="font-display text-lg font-semibold text-foreground">Dreams Furniture</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Open our exact location in Google Maps</p>
                 </div>
-                <MapPin size={20} className="text-primary shrink-0" />
-              </div>
-              <span className="inline-flex items-center gap-2 text-sm font-medium text-primary">
-                Preview location <ExternalLink size={16} />
-              </span>
+              </a>
+            </div>
+            <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex text-sm text-primary hover:text-primary/80 transition-colors">
+              Open in Google Maps
             </a>
           </div>
         </div>
