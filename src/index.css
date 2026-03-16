@@ -155,10 +155,17 @@
     background-clip: text;
   }
   .hero-dreams-text {
-    background: linear-gradient(90deg, #f8f4ef 0%, #d8c7b2 32%, #9f8a73 58%, #5f6f7f 100%);
+    background: linear-gradient(
+      90deg,
+      #E9E07A 0%,
+      #E9E07A 68%,
+      #F5EFA6 84%,
+      #D4B437 100%
+    );
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
   .gold-border {
     border-image: var(--gold-gradient) 1;
