@@ -138,7 +138,7 @@ const Index = () => {
           <p className="text-primary uppercase tracking-[0.3em] text-sm font-medium mb-4">{HERO_EYEBROW}</p>
           <h1 className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6" dangerouslySetInnerHTML={{ __html: HERO_TITLE.replace("Dreams", "<span class='gold-text'>Dreams</span>") }}>
           </h1>
-          <p className="text-foreground/70 text-lg md:text-xl mb-10 leading-relaxed max-w-xl">
+          <p className="hero-subtitle-glass mb-10">
             {HERO_SUBTITLE}
           </p>
           <div className="flex flex-wrap gap-4">
