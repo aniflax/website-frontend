@@ -154,6 +154,12 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+  .hero-dreams-text {
+    background: linear-gradient(90deg, #8C5A2B, #D4A373, #6F4518);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .gold-border {
     border-image: var(--gold-gradient) 1;
   }
