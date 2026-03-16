@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Send } from "lucide-react";
+import { Send, MapPin, ExternalLink } from "lucide-react";
 import * as Icons from "lucide-react";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
@@ -8,7 +8,7 @@ import { fetchStrapi, mapContactPage } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
 import ContentLoadError from "@/components/ContentLoadError";
 
-const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Dreams+Furniture+-Branded+Furniture+Showroom+in+muzaffarpur+%7C+Best+Furniture+Shop+in+muzaffarpur/@26.1180634,85.3960641,17z/data=!3m1!4b1!4m6!3m5!1s0x39ed11dc964fe957:0x4074c99300c9628!8m2!3d26.1180634!4d85.3960641!16s%2Fg%2F11jb8lt1zn?entry=ttu&g_ep=EgoyMDI2MDMxMC4wIKXMDSoASAFQAw%3D%3D";
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/BxM9ok7utSTPzvmE6";
 
 // Provide a safe icon renderer
 const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) => {
@@ -116,17 +116,25 @@ const Contact = () => {
               ))}
 
               {/* Map */}
-              <div className="rounded-2xl overflow-hidden border border-border h-64">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3588.123456789!2d85.39!3d26.12!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDA3JzEyLjAiTiA4NcKwMjMnMjQuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  title="Dreams Furniture Location"
-                />
-              </div>
+              <a
+                href={GOOGLE_MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card-hover flex h-64 flex-col justify-between rounded-2xl p-8"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="font-display text-3xl font-bold text-foreground">Visit Our Showroom</p>
+                    <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+                      Open the exact Dreams Furniture location in Google Maps for directions and navigation.
+                    </p>
+                  </div>
+                  <MapPin size={24} className="text-primary shrink-0" />
+                </div>
+                <span className="inline-flex items-center gap-2 text-sm font-medium text-primary">
+                  Preview location <ExternalLink size={16} />
+                </span>
+              </a>
               <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="inline-flex text-sm text-primary hover:text-primary/80 transition-colors">
                 Open in Google Maps
               </a>
