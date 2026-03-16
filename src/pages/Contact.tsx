@@ -8,7 +8,7 @@ import { fetchStrapi, mapContactPage } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
 import ContentLoadError from "@/components/ContentLoadError";
 
-const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/G9eQ6TEHkExFBARJ7";
+const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Dreams+Furniture+-Branded+Furniture+Showroom+in+muzaffarpur+%7C+Best+Furniture+Shop+in+muzaffarpur/@26.119157,85.3947706,17.89z/data=!3m1!5s0x39ed10f88339f585:0x9c4ffdbc5317bc2!4m6!3m5!1s0x39ed11dc964fe957:0x4074c99300c9628!8m2!3d26.1180634!4d85.3960641!16s%2Fg%2F11jb8lt1zn?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D";
 
 // Provide a safe icon renderer
 const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) => {
