@@ -8,6 +8,8 @@ interface ProductCardProps {
 const ProductCard = ({ product }: ProductCardProps) => {
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(price);
+  const hasPrice = typeof product.price === "number" && Number.isFinite(product.price);
+  const hasOriginalPrice = typeof product.originalPrice === "number" && Number.isFinite(product.originalPrice);
 
   return (
     <Link to={`/products/${product.id}`} className="block group">
@@ -34,12 +36,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
             {product.name}
           </h3>
-          <div className="mt-2 flex items-center gap-2">
-            <span className="text-primary font-bold text-lg">{formatPrice(product.price)}</span>
-            {product.originalPrice && (
-              <span className="text-muted-foreground text-sm line-through">{formatPrice(product.originalPrice)}</span>
-            )}
-          </div>
+          {hasPrice && (
+            <div className="mt-2 flex items-center gap-2">
+              <span className="text-primary font-bold text-lg">{formatPrice(product.price)}</span>
+              {hasOriginalPrice && (
+                <span className="text-muted-foreground text-sm line-through">{formatPrice(product.originalPrice)}</span>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </Link>
