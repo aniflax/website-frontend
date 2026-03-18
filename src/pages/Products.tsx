@@ -17,7 +17,10 @@ const Products = () => {
   const { data: products, isLoading: productsLoading, isError: productsError } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const response = await fetchStrapi("products", { "populate": "*" });
+      const response = await fetchStrapi("products", {
+        "populate": "*",
+        "pagination[limit]": 100,
+      });
       const rawData = response.data || [];
       return rawData.map(mapStrapiProduct);
     }
