@@ -240,15 +240,19 @@ const BulkOrder = () => {
   const resolvedData = useMemo(() => {
     const productImages = (productItems || []).flatMap((item: any) => [item.image, ...(item.images || [])]).filter(Boolean);
     const galleryImages = (galleryItems || []).filter(Boolean);
-    const imagePool = [...(data?.galleryImages || []), ...galleryImages, ...productImages].filter(Boolean);
+    const bulkPageGalleryImages = (data?.galleryImages || []).filter(Boolean);
+    const fallbackImagePool = [...galleryImages, ...productImages].filter(Boolean);
+    const imagePool = (bulkPageGalleryImages.length ? bulkPageGalleryImages : fallbackImagePool).filter(Boolean);
 
     const pickImage = (index: number) => imagePool[index % Math.max(imagePool.length, 1)];
     const findProductImage = (keyword: string) =>
       (productItems || []).find((item: any) => item.category?.toLowerCase().includes(keyword) || item.name?.toLowerCase().includes(keyword))?.image;
 
+    const hasBulkPageContent = Boolean(data);
+
     const whoWeServe = (data?.whoWeServe?.length ? data.whoWeServe : defaultWhoWeServe).map((item: any, index: number) => ({
       ...item,
-      icon: item.icon || pickImage(index),
+      icon: item.icon || (!hasBulkPageContent ? pickImage(index) : undefined),
     }));
 
     const categoryImageMap = [
@@ -262,7 +266,7 @@ const BulkOrder = () => {
     const furnitureCategories = (data?.furnitureCategories?.length ? data.furnitureCategories : defaultFurnitureCategories).map(
       (item: any, index: number) => ({
         ...item,
-        image: item.image || categoryImageMap[index] || pickImage(index),
+        image: item.image || (!hasBulkPageContent ? categoryImageMap[index] || pickImage(index) : undefined),
       })
     );
 
@@ -271,7 +275,7 @@ const BulkOrder = () => {
       furnitureCategories,
       whyChooseUs: data?.whyChooseUs?.length ? data.whyChooseUs : defaultWhyChooseUs,
       processSteps: data?.processSteps?.length ? data.processSteps : defaultProcessSteps,
-      galleryImages: imagePool.slice(0, 9),
+      galleryImages: bulkPageGalleryImages.length ? bulkPageGalleryImages.slice(0, 9) : imagePool.slice(0, 9),
       ctaTitle: data?.ctaTitle || defaultCta.title,
       ctaDescription: data?.ctaDescription || defaultCta.description,
     };
@@ -327,7 +331,7 @@ const BulkOrder = () => {
   const hasProcessSteps = Boolean(resolvedData.processSteps?.length);
   const hasGallery = Boolean(showcaseImages.length);
   const hasCta = Boolean(resolvedData.ctaTitle || resolvedData.ctaDescription);
-  const heroBannerImage = data?.bannerImage || showcaseImages[0] || "/placeholder.svg";
+  const heroBannerImage = data?.bannerImage || "/placeholder.svg";
 
   return (
     <div className="min-h-screen pt-24">
