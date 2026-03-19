@@ -165,11 +165,6 @@ const defaultCta = {
     "Talk to Dreams Furniture for custom quotations, design coordination, and dependable project delivery.",
 };
 
-const bulkOrderHeroCopy = {
-  eyebrow: "Bulk Orders",
-  title: "Furniture Solutions Built for Larger Projects",
-};
-
 const DynamicIcon = ({
   name,
   className,
@@ -336,7 +331,7 @@ const BulkOrder = () => {
 
   return (
     <div className="min-h-screen pt-24">
-      <section className="relative overflow-hidden py-28 md:py-32">
+      <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           {isLoading ? (
             <Skeleton className="h-full w-full rounded-none" />
@@ -344,16 +339,11 @@ const BulkOrder = () => {
             <img src={heroBannerImage} alt="Bulk order banner" className="h-full w-full object-cover" />
           )}
         </div>
-        <div className="container relative z-10 mx-auto px-4">
-          <div className="max-w-3xl">
-            <p className="mb-3 text-sm uppercase tracking-[0.2em] text-primary">{bulkOrderHeroCopy.eyebrow}</p>
-            <h1 className="font-display text-4xl font-bold md:text-6xl">{bulkOrderHeroCopy.title}</h1>
-          </div>
-        </div>
+        <div className="relative h-[320px] md:h-[400px] lg:h-[440px]" />
       </section>
 
       {hasWhoWeServe && (
-        <section className="section-padding">
+        <section className="px-4 pb-16 pt-8 sm:px-6 md:pb-24 md:pt-10 lg:px-8">
           <div className="container mx-auto">
             <div
               ref={serve.ref}
