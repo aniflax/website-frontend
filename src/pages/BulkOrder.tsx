@@ -204,14 +204,7 @@ const BulkOrder = () => {
     queryKey: ["bulk-order-page"],
     queryFn: async () => {
       try {
-        const response = await fetchStrapi("bulk-order-page", {
-          "populate[bannerImage]": "*",
-          "populate[whoWeServe][populate][icon]": "*",
-          "populate[furnitureCategories][populate][image]": "*",
-          "populate[whyChooseUs]": "*",
-          "populate[processSteps]": "*",
-          "populate[galleryImages]": "*",
-        });
+        const response = await fetchStrapi("bulk-order-page", { populate: "*" });
 
         return mapBulkOrderPage(response);
       } catch (error) {
