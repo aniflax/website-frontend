@@ -168,8 +168,6 @@ const defaultCta = {
 const bulkOrderHeroCopy = {
   eyebrow: "Bulk Orders",
   title: "Furniture Solutions Built for Larger Projects",
-  description:
-    "From hospitality and offices to residential developments, we deliver coordinated furniture supply with reliable production and project support.",
 };
 
 const DynamicIcon = ({
@@ -345,16 +343,11 @@ const BulkOrder = () => {
           ) : (
             <img src={heroBannerImage} alt="Bulk order banner" className="h-full w-full object-cover" />
           )}
-          <div className="absolute inset-0 bg-background/55" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(216_19%_10%_/_0.14),hsl(216_19%_10%_/_0.58))]" />
         </div>
         <div className="container relative z-10 mx-auto px-4">
           <div className="max-w-3xl">
             <p className="mb-3 text-sm uppercase tracking-[0.2em] text-primary">{bulkOrderHeroCopy.eyebrow}</p>
             <h1 className="font-display text-4xl font-bold md:text-6xl">{bulkOrderHeroCopy.title}</h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
-              {bulkOrderHeroCopy.description}
-            </p>
           </div>
         </div>
       </section>
