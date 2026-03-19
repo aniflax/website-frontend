@@ -165,6 +165,13 @@ const defaultCta = {
     "Talk to Dreams Furniture for custom quotations, design coordination, and dependable project delivery.",
 };
 
+const bulkOrderHeroCopy = {
+  eyebrow: "Bulk Orders",
+  title: "Furniture Solutions Built for Larger Projects",
+  description:
+    "From hospitality and offices to residential developments, we deliver coordinated furniture supply with reliable production and project support.",
+};
+
 const DynamicIcon = ({
   name,
   className,
@@ -205,6 +212,7 @@ const BulkOrder = () => {
     queryFn: async () => {
       try {
         const response = await fetchStrapi("bulk-order-page", {
+          "populate[bannerImage]": "*",
           "populate[whoWeServe][populate][icon]": "*",
           "populate[furnitureCategories][populate][image]": "*",
           "populate[whyChooseUs]": "*",
@@ -326,24 +334,30 @@ const BulkOrder = () => {
   const hasProcessSteps = Boolean(resolvedData.processSteps?.length);
   const hasGallery = Boolean(showcaseImages.length);
   const hasCta = Boolean(resolvedData.ctaTitle || resolvedData.ctaDescription);
+  const heroBannerImage = data?.bannerImage || showcaseImages[0] || "/placeholder.svg";
 
   return (
     <div className="min-h-screen pt-24">
-      {isLoading ? (
-        <section className="section-padding">
-          <div className="container mx-auto">
-            <div className="mb-12 max-w-3xl">
-              <Skeleton className="mb-3 h-5 w-48" />
-              <Skeleton className="h-12 w-full max-w-2xl" />
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {Array.from({ length: 6 }).map((_, index) => (
-                <Skeleton key={index} className="h-72 rounded-2xl w-full" />
-              ))}
-            </div>
+      <section className="relative overflow-hidden py-28 md:py-32">
+        <div className="absolute inset-0">
+          {isLoading ? (
+            <Skeleton className="h-full w-full rounded-none" />
+          ) : (
+            <img src={heroBannerImage} alt="Bulk order banner" className="h-full w-full object-cover" />
+          )}
+          <div className="absolute inset-0 bg-background/55" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(216_19%_10%_/_0.14),hsl(216_19%_10%_/_0.58))]" />
+        </div>
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="max-w-3xl">
+            <p className="mb-3 text-sm uppercase tracking-[0.2em] text-primary">{bulkOrderHeroCopy.eyebrow}</p>
+            <h1 className="font-display text-4xl font-bold md:text-6xl">{bulkOrderHeroCopy.title}</h1>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
+              {bulkOrderHeroCopy.description}
+            </p>
           </div>
-        </section>
-      ) : null}
+        </div>
+      </section>
 
       {hasWhoWeServe && (
         <section className="section-padding">

@@ -189,6 +189,7 @@ export const mapBulkOrderPage = (data: any) => {
   const attrs = data?.data?.attributes || data?.data || {};
 
   return {
+    bannerImage: getStrapiURL(attrs.bannerImage?.data?.attributes?.url || attrs.bannerImage?.url),
     whoWeServe: (attrs.whoWeServe || []).map((item: any) => ({
       title: item.title,
       description: item.description,
