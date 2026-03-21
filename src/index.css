@@ -258,7 +258,7 @@
     pointer-events: none;
   }
   .developer-glass-label {
-    @apply relative whitespace-nowrap text-[0.56rem] font-semibold lowercase tracking-[0.14em] text-muted-foreground/85;
+    @apply relative whitespace-nowrap font-display text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground/85;
   }
   .developer-liquid-link {
     @apply relative inline-flex min-h-[2rem] items-center justify-center overflow-hidden rounded-full px-3 py-1.5 text-center no-underline transition-all duration-500;
