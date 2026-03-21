@@ -221,7 +221,7 @@ const Index = () => {
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-          <div className="mt-8 text-center md:hidden">
+          <div className="mt-10 text-center">
             <Link to="/products" className="featured-products-view-link inline-flex items-center gap-2">
               View All Products <ChevronRight size={18} />
             </Link>
