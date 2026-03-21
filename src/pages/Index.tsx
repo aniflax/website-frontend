@@ -71,7 +71,6 @@ const Index = () => {
     queryFn: async () => {
       const response = await fetchStrapi("products", {
         "filters[featured][$eq]": true,
-        "pagination[limit]": 8,
         "populate": "*"
       });
       return (response.data || []).map(mapStrapiProduct);
