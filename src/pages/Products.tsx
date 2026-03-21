@@ -28,7 +28,7 @@ const Products = () => {
 
   // Fetch Categories
   const { data: categories, isLoading: categoriesLoading, isError: categoriesError } = useQuery({
-    queryKey: ["categories"],
+    queryKey: ["product-categories"],
     queryFn: async () => {
       const response = await fetchStrapi("categories");
       const rawData = response.data || [];
