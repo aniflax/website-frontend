@@ -206,7 +206,7 @@ const Index = () => {
               <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Handpicked</p>
               <h2 className="font-display text-4xl md:text-5xl font-bold">Featured Products</h2>
             </div>
-            <Link to="/products" className="hidden md:flex items-center gap-1 text-primary font-medium hover:gap-2 transition-all">
+            <Link to="/products" className="featured-products-view-link hidden md:inline-flex items-center gap-2">
               View All <ChevronRight size={18} />
             </Link>
           </div>
@@ -222,7 +222,7 @@ const Index = () => {
             ))}
           </div>
           <div className="mt-8 text-center md:hidden">
-            <Link to="/products" className="btn-outline-glass inline-flex items-center gap-1">
+            <Link to="/products" className="featured-products-view-link inline-flex items-center gap-2">
               View All Products <ChevronRight size={18} />
             </Link>
           </div>
