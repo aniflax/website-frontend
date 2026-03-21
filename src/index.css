@@ -235,7 +235,7 @@
     transform: translate3d(8%, -6%, 0) scale(1.08);
   }
   .featured-products-view-link {
-    @apply btn-liquid-glass font-display text-base font-semibold tracking-[0.08em] text-primary-foreground md:text-lg;
+    @apply btn-liquid-glass font-display text-base font-bold tracking-[0.08em] text-black md:text-lg;
     min-height: 3.6rem;
     padding-inline: 1.6rem;
     box-shadow:
