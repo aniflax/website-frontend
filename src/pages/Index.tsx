@@ -71,7 +71,7 @@ const Index = () => {
     queryFn: async () => {
       const response = await fetchStrapi("products", {
         "filters[featured][$eq]": true,
-        "pagination[limit]": 4,
+        "pagination[limit]": 8,
         "populate": "*"
       });
       return (response.data || []).map(mapStrapiProduct);
@@ -213,7 +213,7 @@ const Index = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {prodsLoading ? (
-              Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)
+              Array.from({ length: 8 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)
             ) : prodsError ? (
               <div className="col-span-full">
                 <ContentLoadError message="Featured products could not be loaded." />
