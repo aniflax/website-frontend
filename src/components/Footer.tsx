@@ -3,6 +3,7 @@ import { Facebook, Instagram, Youtube, MapPin, Phone, Mail } from "lucide-react"
 import logo from "@/assets/Dreams logo.png";
 
 const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Dreams+Furniture+-Branded+Furniture+Showroom+in+muzaffarpur+%7C+Best+Furniture+Shop+in+muzaffarpur/@26.119157,85.3947706,17.89z/data=!3m1!5s0x39ed10f88339f585:0x9c4ffdbc5317bc2!4m6!3m5!1s0x39ed11dc964fe957:0x4074c99300c9628!8m2!3d26.1180634!4d85.3960641!16s%2Fg%2F11jb8lt1zn?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D";
+const DEVELOPER_URL = "https://aniflax.github.io/net";
 
 const Footer = () => {
   return (
@@ -31,6 +32,19 @@ const Footer = () => {
                   <Icon size={18} />
                 </a>
               )}
+            </div>
+            <div className="developer-glass-card">
+              <p className="developer-glass-label">Developer</p>
+              <a
+                href={DEVELOPER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="developer-liquid-link"
+                aria-label="Visit developer portfolio"
+              >
+                <span className="developer-liquid-shine" aria-hidden="true" />
+                <span className="developer-liquid-text">𝐀𝐧𝐢𝐟𝐥𝐚𝐱 ツ</span>
+              </a>
             </div>
           </div>
 
