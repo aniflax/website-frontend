@@ -34,7 +34,7 @@ const Footer = () => {
               )}
             </div>
             <div className="developer-glass-card">
-              <p className="developer-glass-label">Developer</p>
+              <p className="developer-glass-label">developer:</p>
               <a
                 href={DEVELOPER_URL}
                 target="_blank"
