@@ -72,11 +72,6 @@ const ProductDetails = () => {
     );
   }
 
-  const formatPrice = (price: number) =>
-    new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(price);
-  const hasPrice = typeof product.price === "number" && Number.isFinite(product.price);
-  const hasOriginalPrice = typeof product.originalPrice === "number" && Number.isFinite(product.originalPrice);
-
   const images = product.images && product.images.length > 0 ? product.images : [product.image];
 
   return (
@@ -119,14 +114,6 @@ const ProductDetails = () => {
               )}
               <h1 className="font-display text-3xl md:text-4xl font-bold">{product.name}</h1>
               <p className="text-muted-foreground uppercase tracking-wider text-sm">{product.category}</p>
-              {hasPrice && (
-                <div className="flex items-baseline gap-3">
-                  <span className="text-3xl font-bold text-primary">{formatPrice(product.price)}</span>
-                  {hasOriginalPrice && (
-                    <span className="text-xl text-muted-foreground line-through">{formatPrice(product.originalPrice)}</span>
-                  )}
-                </div>
-              )}
               <div className="text-foreground/80 leading-relaxed whitespace-pre-wrap">{product.description}</div>
 
               {product.features && product.features.length > 0 && (
