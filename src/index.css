@@ -253,7 +253,7 @@
       0 0 46px hsl(38 70% 58% / 0.2);
   }
   .developer-glass-card {
-    @apply relative mt-4 inline-flex max-w-fit items-center gap-2 overflow-hidden rounded-full px-2.5 py-2;
+    @apply relative mt-2.5 inline-flex max-w-fit items-center gap-1 overflow-hidden rounded-full px-1.5 py-1;
     background:
       linear-gradient(135deg, hsl(0 0% 100% / 0.18), hsl(0 0% 100% / 0.05)),
       linear-gradient(145deg, hsl(216 19% 26% / 0.3), hsl(216 19% 26% / 0.12));
@@ -276,10 +276,10 @@
     pointer-events: none;
   }
   .developer-glass-label {
-    @apply relative whitespace-nowrap font-display text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground/85;
+    @apply relative whitespace-nowrap font-display text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground/85;
   }
   .developer-liquid-link {
-    @apply relative inline-flex min-h-[2rem] items-center justify-center overflow-hidden rounded-full px-3 py-1.5 text-center no-underline transition-all duration-500;
+    @apply relative inline-flex min-h-[1.65rem] items-center justify-center overflow-hidden rounded-full px-2 py-0.5 text-center no-underline transition-all duration-500;
     background:
       linear-gradient(135deg, hsl(0 0% 100% / 0.28), hsl(0 0% 100% / 0.08)),
       linear-gradient(180deg, hsl(216 19% 26% / 0.55), hsl(216 19% 26% / 0.3));
@@ -340,7 +340,7 @@
     pointer-events: none;
   }
   .developer-liquid-text {
-    @apply relative whitespace-nowrap font-display text-[0.7rem] font-semibold text-primary-foreground sm:text-xs;
+    @apply relative whitespace-nowrap font-display text-[0.6rem] font-semibold text-primary-foreground sm:text-[0.68rem];
     letter-spacing: 0.04em;
     transition: letter-spacing 400ms ease, text-shadow 400ms ease;
   }

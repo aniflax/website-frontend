@@ -33,19 +33,6 @@ const Footer = () => {
                 </a>
               )}
             </div>
-            <div className="developer-glass-card">
-              <p className="developer-glass-label">DEVELOPER:</p>
-              <a
-                href={DEVELOPER_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="developer-liquid-link"
-                aria-label="Visit developer portfolio"
-              >
-                <span className="developer-liquid-shine" aria-hidden="true" />
-                <span className="developer-liquid-text">𝐀𝐧𝐢𝐟𝐥𝐚𝐱 ツ</span>
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -115,6 +102,19 @@ const Footer = () => {
             <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex text-sm text-primary hover:text-primary/80 transition-colors">
               Open in Google Maps
             </a>
+            <div className="developer-glass-card">
+              <p className="developer-glass-label">DEVELOPER:</p>
+              <a
+                href={DEVELOPER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="developer-liquid-link"
+                aria-label="Visit developer portfolio"
+              >
+                <span className="developer-liquid-shine" aria-hidden="true" />
+                <span className="developer-liquid-text">𝐀𝐧𝐢𝐟𝐥𝐚𝐱 ツ</span>
+              </a>
+            </div>
           </div>
         </div>
 
