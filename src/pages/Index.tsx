@@ -399,7 +399,7 @@ const Index = () => {
           ref={cta.ref}
           className={`relative z-10 container mx-auto px-4 text-center max-w-2xl transition-all duration-700 ${cta.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            Visit Our <span className="gold-text">Showroom</span>
+            Income Tax Department
           </h2>
           <p className="text-foreground/70 text-lg mb-8">
             {SHOWROOM_SUBTITLE}
