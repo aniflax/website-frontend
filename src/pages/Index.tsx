@@ -19,7 +19,7 @@ const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) =
 const HERO_EYEBROW = "Premium Furniture Collection";
 const HERO_TITLE = "Dreams Furnitures";
 const HERO_SUBTITLE = "Transform your living spaces with handcrafted luxury furniture that speaks elegance and comfort.";
-const SHOWROOM_SUBTITLE = "Income Tax Department | Our Corporate Clients: Canara Bank, Bank of India, LIC, ICAR-National Research Centre on Litchi, DAV School, Kendriya Vidyalaya, Sacred Heart School, Leprosy Mission Hospital, and more.";
+const SHOWROOM_SUBTITLE = "Our Corporate Clients: Canara Bank, Bank of India, LIC, ICAR-National Research Centre on Litchi, DAV School, Kendriya Vidyalaya, Sacred Heart School, Leprosy Mission Hospital, and more.";
 const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Dreams+Furniture+-Branded+Furniture+Showroom+in+muzaffarpur+%7C+Best+Furniture+Shop+in+muzaffarpur/@26.119157,85.3947706,17.89z/data=!3m1!5s0x39ed10f88339f585:0x9c4ffdbc5317bc2!4m6!3m5!1s0x39ed11dc964fe957:0x4074c99300c9628!8m2!3d26.1180634!4d85.3960641!16s%2Fg%2F11jb8lt1zn?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D";
 const WHATSAPP_URL = "https://wa.me/919801980316?text=Hi%20Dreams%20Furniture%2C%20I%20want%20to%20enquire%20about%20your%20furniture";
 
@@ -42,7 +42,9 @@ const Index = () => {
   const { data: pageData, isLoading: pageLoading, isError: pageError } = useQuery({
     queryKey: ["homepage"],
     queryFn: async () => {
-      const response = await fetchStrapi("homepage", { populate: ["heroImage", "whyChoose", "testimonials", "featuredVideos"] });
+      const response = await fetchStrapi("homepage", {
+        populate: ["heroImage", "incomeTaxBannerImage", "whyChoose", "testimonials", "featuredVideos"]
+      });
       return mapHomepage(response);
     },
     retry: 1
@@ -89,7 +91,8 @@ const Index = () => {
     }
   });
 
-  const { heroImage, whyChoose, testimonials, featuredVideos } = pageData || {};
+  const { heroImage, incomeTaxBannerImage, whyChoose, testimonials, featuredVideos } = pageData || {};
+  const incomeTaxSectionImage = incomeTaxBannerImage || heroImage;
 
   // Helper to convert YouTube URL to embed URL
   const getEmbedUrl = (url: string) => {
@@ -392,14 +395,14 @@ const Index = () => {
       {/* CTA */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="Showroom" className="w-full h-full object-cover" />
+          <img src={incomeTaxSectionImage} alt="Income Tax Department" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-background/70" />
         </div>
         <div
           ref={cta.ref}
           className={`relative z-10 container mx-auto px-4 text-center max-w-2xl transition-all duration-700 ${cta.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            Income Tax Department
+            Income Tax <span className="gold-text">Department</span>
           </h2>
           <p className="text-foreground/70 text-lg mb-8">
             {SHOWROOM_SUBTITLE}

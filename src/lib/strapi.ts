@@ -157,6 +157,9 @@ export const mapHomepage = (data: any) => {
   const attrs = data?.data?.attributes || data?.data || {};
   return {
     heroImage: getStrapiURL(attrs.heroImage?.data?.attributes?.url || attrs.heroImage?.url),
+    incomeTaxBannerImage: getStrapiURL(
+      attrs.incomeTaxBannerImage?.data?.attributes?.url || attrs.incomeTaxBannerImage?.url
+    ),
     whyChoose: attrs.whyChoose || [],
     testimonials: attrs.testimonials || [],
     featuredVideos: attrs.featuredVideos || []
