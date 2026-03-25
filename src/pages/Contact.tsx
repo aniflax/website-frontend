@@ -124,7 +124,7 @@ const Contact = () => {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="font-display text-3xl font-bold text-foreground">Visit Our Showroom</p>
+                    <p className="font-display text-3xl font-bold text-foreground">Income Tax Department</p>
                     <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
                       Open the exact Dreams Furniture location in Google Maps for directions and navigation.
                     </p>
