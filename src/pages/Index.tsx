@@ -283,19 +283,19 @@ const Index = () => {
       {/* Featured Videos */}
       {pageLoading ? (
         <section className="pt-2 pb-16 md:pt-4 md:pb-24">
-          <div className="container mx-auto">
+          <div className="container mx-auto px-2 sm:px-4">
             <div className="text-center mb-12">
               <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Watch & Experience</p>
               <h2 className="font-display text-4xl md:text-5xl font-bold">Featured Videos</h2>
             </div>
-            <div className="grid grid-cols-2 gap-2 sm:gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-8 max-w-none sm:max-w-5xl mx-auto">
               {Array.from({ length: 2 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)}
             </div>
           </div>
         </section>
       ) : pageError ? (
         <section className="pt-2 pb-16 md:pt-4 md:pb-24">
-          <div className="container mx-auto">
+          <div className="container mx-auto px-2 sm:px-4">
             <ContentLoadError message="Featured videos could not be loaded." />
           </div>
         </section>
@@ -306,10 +306,10 @@ const Index = () => {
               <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Watch & Experience</p>
               <h2 className="font-display text-4xl md:text-5xl font-bold">Featured Videos</h2>
             </div>
-            <div className="grid grid-cols-2 gap-2 sm:gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-8 max-w-none sm:max-w-5xl mx-auto">
               {featuredVideos.map((video: any, i: number) => (
                 <div key={i} className="glass-card-hover overflow-hidden group flex flex-col">
-                  <div className="aspect-square relative bg-black cursor-pointer overflow-hidden" onClick={() => toggleVideo(i)}>
+                  <div className="aspect-[4/5] sm:aspect-square relative bg-black cursor-pointer overflow-hidden" onClick={() => toggleVideo(i)}>
                     {playingVideos[i] ? (
                       <iframe
                         width="100%"
@@ -337,8 +337,8 @@ const Index = () => {
                       </>
                     )}
                   </div>
-                  <div className="p-4 sm:p-6 bg-card mt-auto border-t">
-                    <h3 className="font-display text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors text-center">
+                  <div className="p-2.5 sm:p-6 bg-card mt-auto border-t">
+                    <h3 className="font-display text-sm sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors text-center leading-tight">
                       {video.title}
                     </h3>
                   </div>
