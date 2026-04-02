@@ -190,7 +190,7 @@ const Index = () => {
             <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Browse By</p>
             <h2 className="font-display text-4xl md:text-5xl font-bold">Featured Categories</h2>
           </div>
-          <div className="grid grid-cols-4 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-5">
+          <div className="grid grid-cols-3 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-5">
             {catsLoading ? (
               Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)
             ) : catsError ? (
