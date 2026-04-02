@@ -232,7 +232,7 @@ const Index = () => {
                 <img
                   src={whyChoosePoster}
                   alt="Why Choose Dreams Furniture poster"
-                  className="max-h-[360px] w-full object-contain md:max-h-[310px] lg:max-h-[350px]"
+                  className="max-h-[390px] w-full object-contain md:max-h-[310px] lg:max-h-[350px]"
                   loading="lazy"
                 />
               </div>
