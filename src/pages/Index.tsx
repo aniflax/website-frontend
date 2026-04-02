@@ -190,7 +190,7 @@ const Index = () => {
             <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Browse By</p>
             <h2 className="font-display text-4xl md:text-5xl font-bold">Featured Categories</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-4 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-5">
             {catsLoading ? (
               Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)
             ) : catsError ? (
@@ -210,8 +210,8 @@ const Index = () => {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                     />
                   </div>
-                  <div className="p-4">
-                    <h3 className="font-display font-semibold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">
+                  <div className="p-2 md:p-4">
+                    <h3 className="font-display font-semibold text-sm leading-tight text-foreground group-hover:text-primary transition-colors md:text-xl">
                       {cat.name}
                     </h3>
                   </div>
