@@ -358,7 +358,7 @@ const Index = () => {
             <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Our Promise</p>
             <h2 className="font-display text-4xl md:text-5xl font-bold">Why Choose Dreams Furniture</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid auto-cols-[78%] grid-flow-col gap-4 overflow-x-auto pb-2 sm:grid-cols-2 sm:grid-flow-row sm:auto-cols-auto sm:gap-6 sm:overflow-visible sm:pb-0 lg:grid-cols-4">
             {pageLoading ? (
               Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
             ) : pageError ? (
@@ -366,7 +366,7 @@ const Index = () => {
                 <ContentLoadError message="Homepage highlights could not be loaded." />
               </div>
             ) : whyChoose?.map(({ icon, title, desc }: any, i: number) => (
-              <div key={title} className="glass-card-hover p-8 text-center" style={{ transitionDelay: `${i * 100}ms` }}>
+              <div key={title} className="glass-card-hover p-6 text-center sm:p-8" style={{ transitionDelay: `${i * 100}ms` }}>
                 <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
                   <DynamicIcon name={icon || "star"} size={28} className="text-primary" />
                 </div>
@@ -387,7 +387,7 @@ const Index = () => {
             <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Testimonials</p>
             <h2 className="font-display text-4xl md:text-5xl font-bold">What Our Customers Say</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid auto-cols-[82%] grid-flow-col gap-4 overflow-x-auto pb-2 md:grid-cols-3 md:grid-flow-row md:auto-cols-auto md:gap-6 md:overflow-visible md:pb-0">
             {pageLoading ? (
               Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
             ) : pageError ? (
@@ -395,7 +395,7 @@ const Index = () => {
                 <ContentLoadError message="Testimonials could not be loaded." />
               </div>
             ) : testimonials?.map((t: any, i: number) => (
-              <div key={i} className="glass-card p-8">
+              <div key={i} className="glass-card p-6 sm:p-8">
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: t.rating || 5 }).map((_, j) => (
                     <Star key={j} size={16} className="text-primary fill-primary" />
