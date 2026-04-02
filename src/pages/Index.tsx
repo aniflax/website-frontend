@@ -288,7 +288,7 @@ const Index = () => {
               <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Watch & Experience</p>
               <h2 className="font-display text-4xl md:text-5xl font-bold">Featured Videos</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto">
               {Array.from({ length: 2 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)}
             </div>
           </div>
@@ -306,7 +306,7 @@ const Index = () => {
               <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Watch & Experience</p>
               <h2 className="font-display text-4xl md:text-5xl font-bold">Featured Videos</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto">
               {featuredVideos.map((video: any, i: number) => (
                 <div key={i} className="glass-card-hover overflow-hidden group flex flex-col">
                   <div className="aspect-square relative bg-black cursor-pointer overflow-hidden" onClick={() => toggleVideo(i)}>
@@ -329,16 +329,16 @@ const Index = () => {
                           className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 scale-105 group-hover:scale-100"
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-16 h-16 rounded-full bg-primary/90 text-primary-foreground flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
-                            <Play size={32} fill="currentColor" className="ml-1" />
+                          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/90 text-primary-foreground flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                            <Play size={24} fill="currentColor" className="ml-0.5 sm:ml-1 sm:w-8 sm:h-8" />
                           </div>
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       </>
                     )}
                   </div>
-                  <div className="p-6 bg-card mt-auto border-t">
-                    <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors text-center">
+                  <div className="p-3 sm:p-6 bg-card mt-auto border-t">
+                    <h3 className="font-display text-sm sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors text-center">
                       {video.title}
                     </h3>
                   </div>
