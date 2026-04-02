@@ -255,7 +255,7 @@ const Index = () => {
               View All <ChevronRight size={18} />
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {prodsLoading ? (
               Array.from({ length: 8 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)
             ) : prodsError ? (
