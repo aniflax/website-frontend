@@ -160,6 +160,9 @@ export const mapHomepage = (data: any) => {
     incomeTaxBannerImage: getStrapiURL(
       attrs.incomeTaxBannerImage?.data?.attributes?.url || attrs.incomeTaxBannerImage?.url
     ),
+    whyChoosePoster: getStrapiURL(
+      attrs.whyChoosePoster?.data?.attributes?.url || attrs.whyChoosePoster?.url
+    ),
     ctaLogos: (attrs.ctaLogos?.data || attrs.ctaLogos || []).map((item: any) =>
       getStrapiURL(item?.attributes?.url || item?.url)
     ),

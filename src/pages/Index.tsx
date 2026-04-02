@@ -69,7 +69,6 @@ const Index = () => {
   const featured = useScrollAnimation();
   const why = useScrollAnimation();
   const test = useScrollAnimation();
-  const gallery = useScrollAnimation();
   const cta = useScrollAnimation();
 
   // Fetch Homepage Data
@@ -77,7 +76,7 @@ const Index = () => {
     queryKey: ["homepage"],
     queryFn: async () => {
       const response = await fetchStrapi("homepage", {
-        populate: ["heroImage", "incomeTaxBannerImage", "ctaLogos", "whyChoose", "testimonials", "featuredVideos"]
+        populate: ["heroImage", "incomeTaxBannerImage", "ctaLogos", "whyChoosePoster", "whyChoose", "testimonials", "featuredVideos"]
       });
       return mapHomepage(response);
     },
@@ -113,19 +112,7 @@ const Index = () => {
     }
   });
 
-  // Fetch Gallery for showcase
-  const { data: showcaseGallery, isLoading: galleryLoading, isError: galleryError } = useQuery({
-    queryKey: ["gallery-showcase"],
-    queryFn: async () => {
-      const response = await fetchStrapi("galleries", { "pagination[limit]": 6, "populate": "*" });
-      return (response.data || []).map((item: any) => {
-        const media = item.attributes?.Media?.data?.attributes || item.Media;
-        return getStrapiURL(media?.url);
-      });
-    }
-  });
-
-  const { heroImage, incomeTaxBannerImage, ctaLogos, whyChoose, testimonials, featuredVideos } = pageData || {};
+  const { heroImage, incomeTaxBannerImage, whyChoosePoster, ctaLogos, whyChoose, testimonials, featuredVideos } = pageData || {};
   const incomeTaxSectionImage = incomeTaxBannerImage || heroImage;
 
   // Helper to convert YouTube URL to embed URL
@@ -341,37 +328,6 @@ const Index = () => {
         </section>
       )}
 
-      {/* Gallery Showcase */}
-      <section className="section-padding">
-        <div className="container mx-auto">
-          <div
-            ref={gallery.ref}
-            className={`text-center mb-12 transition-all duration-700 ${gallery.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Showroom</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold">Furniture Showcase</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {galleryLoading ? (
-              Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl w-full" />)
-            ) : galleryError ? (
-              <div className="col-span-full">
-                <ContentLoadError message="Gallery images could not be loaded." />
-              </div>
-            ) : showcaseGallery?.map((img: string, i: number) => (
-              <div key={i} className="group relative overflow-hidden rounded-2xl aspect-square">
-                <img src={img} alt={`Showcase ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                <div className="absolute inset-0 bg-background/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <Link to="/gallery" className="btn-outline-glass inline-flex items-center gap-2">
-              View Full Gallery <ArrowRight size={18} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Why Choose */}
       <section className="section-padding">
         <div className="container mx-auto">
@@ -381,6 +337,18 @@ const Index = () => {
             <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Our Promise</p>
             <h2 className="font-display text-4xl md:text-5xl font-bold">Why Choose Dreams Furniture</h2>
           </div>
+          {pageLoading ? (
+            <Skeleton className="mx-auto mb-10 aspect-[16/7] w-full max-w-4xl rounded-3xl" />
+          ) : pageError ? null : whyChoosePoster && whyChoosePoster !== "/placeholder.svg" ? (
+            <div className="mx-auto mb-10 w-full max-w-4xl overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
+              <img
+                src={whyChoosePoster}
+                alt="Why Choose Dreams Furniture poster"
+                className="h-auto w-full object-contain"
+                loading="lazy"
+              />
+            </div>
+          ) : null}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pageLoading ? (
               Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
