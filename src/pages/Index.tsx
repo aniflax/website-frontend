@@ -113,7 +113,8 @@ const Index = () => {
   });
 
   const { heroImage, incomeTaxBannerImage, whyChoosePoster, ctaLogos, whyChoose, testimonials, featuredVideos } = pageData || {};
-  const incomeTaxSectionImage = incomeTaxBannerImage || heroImage;
+  const incomeTaxSectionImage =
+    incomeTaxBannerImage && incomeTaxBannerImage !== "/placeholder.svg" ? incomeTaxBannerImage : heroImage;
 
   // Helper to convert YouTube URL to embed URL
   const getEmbedUrl = (url: string) => {
@@ -219,6 +220,26 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Why Choose Poster */}
+      {(pageLoading || (!pageError && whyChoosePoster && whyChoosePoster !== "/placeholder.svg")) && (
+        <section className="pb-8 md:pb-12">
+          <div className="container mx-auto">
+            {pageLoading ? (
+              <Skeleton className="mx-auto aspect-[16/7] w-full rounded-3xl" />
+            ) : (
+              <div className="mx-auto w-full overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
+                <img
+                  src={whyChoosePoster}
+                  alt="Why Choose Dreams Furniture poster"
+                  className="max-h-[270px] w-full object-contain md:max-h-[310px] lg:max-h-[350px]"
+                  loading="lazy"
+                />
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Featured Products */}
       <section className="section-padding bg-secondary/30">
@@ -337,18 +358,6 @@ const Index = () => {
             <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Our Promise</p>
             <h2 className="font-display text-4xl md:text-5xl font-bold">Why Choose Dreams Furniture</h2>
           </div>
-          {pageLoading ? (
-            <Skeleton className="mx-auto mb-10 aspect-[16/7] w-full max-w-4xl rounded-3xl" />
-          ) : pageError ? null : whyChoosePoster && whyChoosePoster !== "/placeholder.svg" ? (
-            <div className="mx-auto mb-10 w-full max-w-4xl overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
-              <img
-                src={whyChoosePoster}
-                alt="Why Choose Dreams Furniture poster"
-                className="h-auto w-full object-contain"
-                loading="lazy"
-              />
-            </div>
-          ) : null}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pageLoading ? (
               Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
@@ -403,17 +412,20 @@ const Index = () => {
       {/* CTA */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={incomeTaxSectionImage} alt="Our Coporate Clients" className="w-full h-full object-cover" />
+          <img src={incomeTaxSectionImage} alt="Our Corporate Clients" className="w-full h-full object-cover" />
         </div>
         <div
           ref={cta.ref}
           className={`relative z-10 container mx-auto px-4 text-center max-w-2xl transition-all duration-700 ${cta.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+            Our Corporate <span className="gold-text">Clients</span>
+          </h2>
           {ctaLogos?.length > 0 && (
-            <div className="mb-6 flex flex-wrap items-center justify-center gap-3 md:mb-8 md:gap-4">
+            <div className="mb-6 flex flex-wrap items-center justify-center gap-4 md:mb-8 md:gap-5">
               {ctaLogos.slice(0, 7).map((logo: string, index: number) => (
                 <div
                   key={`${logo}-${index}`}
-                  className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/95 p-2 shadow-lg ring-1 ring-black/5 backdrop-blur-sm md:h-16 md:w-16 md:rounded-3xl"
+                  className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/95 p-3 shadow-lg ring-1 ring-black/5 backdrop-blur-sm md:h-24 md:w-24 md:rounded-3xl"
                 >
                   <img
                     src={logo}
@@ -424,9 +436,6 @@ const Index = () => {
               ))}
             </div>
           )}
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            Our Coporate <span className="gold-text">Clients</span>
-          </h2>
           <p className="text-foreground/70 text-lg mb-8">
             {SHOWROOM_SUBTITLE}
           </p>
