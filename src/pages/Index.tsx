@@ -16,6 +16,40 @@ const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) =
   return <IconComponent {...props} />;
 };
 
+const GoogleReviewsBadge = () => (
+  <div className="inline-flex flex-col items-center gap-4 rounded-[2rem] border border-border/60 bg-background/90 px-7 py-5 shadow-lg backdrop-blur-sm md:px-10 md:py-6">
+    <div className="flex items-center gap-4 md:gap-5">
+      <div
+        className="flex h-12 min-w-[3rem] items-center justify-center rounded-full bg-white px-2 text-lg font-black shadow-sm md:h-14 md:min-w-[3.5rem] md:px-2.5 md:text-xl"
+        aria-label="Google"
+      >
+        <span aria-hidden="true" className="tracking-[-0.08em]">
+          <span className="text-[#4285F4]">G</span>
+          <span className="text-[#EA4335]">o</span>
+          <span className="text-[#FBBC05]">o</span>
+          <span className="text-[#4285F4]">g</span>
+          <span className="text-[#34A853]">l</span>
+          <span className="text-[#EA4335]">e</span>
+        </span>
+      </div>
+      <div className="text-left">
+        <p className="text-base font-semibold text-foreground md:text-xl">500+ Reviews</p>
+        <div className="flex items-center gap-1.5 text-[#f4c430]" aria-label="4.5 out of 5 stars">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <Star key={index} size={20} className="fill-current md:h-6 md:w-6" />
+          ))}
+          <span className="relative inline-flex h-5 w-5 md:h-6 md:w-6">
+            <Star size={20} className="absolute inset-0 text-[#f4c430]/30 md:h-6 md:w-6" />
+            <span className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: "50%" }}>
+              <Star size={20} className="fill-current text-[#f4c430] md:h-6 md:w-6" />
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 const HERO_EYEBROW = "Premium Furniture Collection";
 const HERO_TITLE = "Dreams Furnitures";
 const HERO_SUBTITLE = "Transform your living spaces with handcrafted luxury furniture that speaks elegance and comfort.";
@@ -43,7 +77,7 @@ const Index = () => {
     queryKey: ["homepage"],
     queryFn: async () => {
       const response = await fetchStrapi("homepage", {
-        populate: ["heroImage", "incomeTaxBannerImage", "whyChoose", "testimonials", "featuredVideos"]
+        populate: ["heroImage", "incomeTaxBannerImage", "ctaLogos", "whyChoose", "testimonials", "featuredVideos"]
       });
       return mapHomepage(response);
     },
@@ -91,7 +125,7 @@ const Index = () => {
     }
   });
 
-  const { heroImage, incomeTaxBannerImage, whyChoose, testimonials, featuredVideos } = pageData || {};
+  const { heroImage, incomeTaxBannerImage, ctaLogos, whyChoose, testimonials, featuredVideos } = pageData || {};
   const incomeTaxSectionImage = incomeTaxBannerImage || heroImage;
 
   // Helper to convert YouTube URL to embed URL
@@ -232,9 +266,15 @@ const Index = () => {
         </div>
       </section>
 
+      <section className="pt-6 pb-0 md:pt-8 md:pb-0">
+        <div className="container mx-auto flex justify-center px-4">
+          <GoogleReviewsBadge />
+        </div>
+      </section>
+
       {/* Featured Videos */}
       {pageLoading ? (
-        <section className="section-padding">
+        <section className="pt-2 pb-16 md:pt-4 md:pb-24">
           <div className="container mx-auto">
             <div className="text-center mb-12">
               <p className="text-primary uppercase tracking-[0.2em] text-sm mb-2">Watch & Experience</p>
@@ -246,7 +286,7 @@ const Index = () => {
           </div>
         </section>
       ) : pageError ? (
-        <section className="section-padding">
+        <section className="pt-2 pb-16 md:pt-4 md:pb-24">
           <div className="container mx-auto">
             <ContentLoadError message="Featured videos could not be loaded." />
           </div>
@@ -400,6 +440,22 @@ const Index = () => {
         <div
           ref={cta.ref}
           className={`relative z-10 container mx-auto px-4 text-center max-w-2xl transition-all duration-700 ${cta.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          {ctaLogos?.length > 0 && (
+            <div className="mb-6 flex flex-wrap items-center justify-center gap-3 md:mb-8 md:gap-4">
+              {ctaLogos.slice(0, 7).map((logo: string, index: number) => (
+                <div
+                  key={`${logo}-${index}`}
+                  className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/95 p-2 shadow-lg ring-1 ring-black/5 backdrop-blur-sm md:h-16 md:w-16 md:rounded-3xl"
+                >
+                  <img
+                    src={logo}
+                    alt={`Corporate client logo ${index + 1}`}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
             Our Coporate <span className="gold-text">Clients</span>
           </h2>
