@@ -224,7 +224,7 @@ const Index = () => {
       {/* Why Choose Poster */}
       {(pageLoading || (!pageError && whyChoosePoster && whyChoosePoster !== "/placeholder.svg")) && (
         <section className="pb-8 md:pb-12">
-          <div className="container mx-auto">
+          <div className="container mx-auto px-2 sm:px-4">
             {pageLoading ? (
               <Skeleton className="mx-auto aspect-[16/7] w-full rounded-3xl" />
             ) : (
@@ -232,7 +232,7 @@ const Index = () => {
                 <img
                   src={whyChoosePoster}
                   alt="Why Choose Dreams Furniture poster"
-                  className="max-h-[270px] w-full object-contain md:max-h-[310px] lg:max-h-[350px]"
+                  className="max-h-[360px] w-full object-contain md:max-h-[310px] lg:max-h-[350px]"
                   loading="lazy"
                 />
               </div>
