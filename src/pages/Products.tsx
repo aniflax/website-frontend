@@ -108,7 +108,7 @@ const Products = () => {
 
           {!isLoading && activeCategory !== "All" && filtered.length > 0 && (
             <div className="mt-10 flex justify-center">
-              <div className="btn-liquid-glass inline-flex items-center justify-center text-center text-lg font-bold text-black md:text-xl">
+              <div className="btn-liquid-glass inline-flex w-[18rem] items-center justify-center text-center font-display text-lg font-bold leading-snug tracking-[0.08em] text-black md:w-auto md:text-xl">
                 More variants are available at the showroom
               </div>
             </div>

@@ -424,11 +424,11 @@ const Index = () => {
             Our Corporate <span className="gold-text">Clients</span>
           </h2>
           {displayedCtaLogos.length > 0 && (
-            <div className="mb-6 flex flex-wrap items-center justify-center gap-4 md:mb-8 md:gap-5">
+            <div className="mb-6 grid grid-cols-5 justify-items-center gap-2 md:mb-8 md:flex md:flex-wrap md:items-center md:justify-center md:gap-5">
               {displayedCtaLogos.map((logo: string, index: number) => (
                 <div
                   key={`${logo}-${index}`}
-                  className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/95 p-3 shadow-lg ring-1 ring-black/5 backdrop-blur-sm md:h-24 md:w-24 md:rounded-3xl"
+                  className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/95 p-2 shadow-lg ring-1 ring-black/5 backdrop-blur-sm md:h-24 md:w-24 md:rounded-3xl md:p-3"
                 >
                   <img
                     src={logo}
