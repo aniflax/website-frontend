@@ -106,6 +106,14 @@ const Products = () => {
             )}
           </div>
 
+          {!isLoading && activeCategory !== "All" && filtered.length > 0 && (
+            <div className="mt-10 flex justify-center">
+              <div className="btn-liquid-glass inline-flex items-center justify-center text-center text-sm font-semibold md:text-base">
+                More variants are available at the showroom
+              </div>
+            </div>
+          )}
+
           {!isLoading && filtered.length === 0 && (
             <div className="text-center py-20 text-muted-foreground">
               <p className="text-xl">No products found in this category.</p>
