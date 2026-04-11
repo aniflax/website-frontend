@@ -1,4 +1,4 @@
-import topBanner from "@/assets/bulk-order/top-banner.jpg";
+import topBanner from "@/assets/bulk-order/bulk-order-top-banner.jpg";
 import sofa1 from "@/assets/products/sofa-1.jpg";
 import sofa2 from "@/assets/products/sofa-2.jpg";
 import bed1 from "@/assets/products/bed-1.jpg";
