@@ -59,7 +59,7 @@ const CTA_LOGOS = [
   "/cta-logos/logo-1.jpg",
   "/cta-logos/logo-2.jpg",
   "/cta-logos/logo-3.png",
-  "/cta-logos/logo-4.jpg",
+  "/cta-logos/logo-4.png",
   "/cta-logos/logo-5.png",
   "/cta-logos/logo-6.jpg",
   "/cta-logos/logo-7.jpg",
