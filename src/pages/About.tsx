@@ -98,12 +98,8 @@ const About = () => {
                 {ABOUT_COPY.storyText}
               </div>
             </div>
-            <div className="rounded-2xl overflow-hidden">
-              {isLoading ? (
-                <Skeleton className="h-80 w-full lg:h-96 rounded-none" />
-              ) : (
-                <img src={storyImage} alt="Our Store" className="w-full h-80 lg:h-96 object-cover" />
-              )}
+            <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/5">
+              <img src="/hero-banner.jpg" alt="Our Store" className="w-full h-80 lg:h-96 object-cover transition-transform duration-700 hover:scale-105" />
             </div>
           </div>
         </div>

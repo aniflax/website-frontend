@@ -432,8 +432,8 @@ const Index = () => {
               ))}
             </div>
           )}
-          <p className="text-foreground/70 text-lg mb-8">
-            Income Tax Department: Canara Bank, Bank of India, LIC, ICAR-National Research Centre on Litchi, DAV School, Kendriya Vidyalaya, Sacred Heart School, Leprosy Mission Hospital, <strong className="font-semibold text-foreground">and many more</strong>.
+          <p className="font-display text-2xl md:text-3xl font-bold mb-8 italic text-primary/80">
+            And many more!
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
