@@ -137,11 +137,16 @@ const BulkOrder = () => {
 
   return (
     <div className="min-h-screen pt-24">
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={heroBannerImage} alt="Bulk order banner" className="h-full w-full object-cover" />
+      <section className="bg-secondary/20 px-3 pb-4 pt-2 sm:px-4 md:px-6 lg:px-8">
+        <div className="container mx-auto">
+          <div className="overflow-hidden rounded-[1.75rem] border border-glass-border bg-card/60">
+            <img
+              src={heroBannerImage}
+              alt="Bulk order banner"
+              className="h-auto max-h-[42vh] w-full object-contain object-center md:max-h-[50vh] 2xl:max-h-[56vh]"
+            />
+          </div>
         </div>
-        <div className="relative h-[320px] md:h-[400px] lg:h-[440px]" />
       </section>
 
       {hasWhoWeServe && (
