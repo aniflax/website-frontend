@@ -3,10 +3,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Send, MapPin, ExternalLink } from "lucide-react";
 import * as Icons from "lucide-react";
 import { toast } from "sonner";
-import { useQuery } from "@tanstack/react-query";
-import { fetchStrapi, mapContactPage } from "@/lib/strapi";
-import { Skeleton } from "@/components/ui/skeleton";
-import ContentLoadError from "@/components/ContentLoadError";
+import { CONTACT_PAGE_DATA } from "@/data/contact";
 
 const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Dreams+Furniture+-Branded+Furniture+Showroom+in+muzaffarpur+%7C+Best+Furniture+Shop+in+muzaffarpur/@26.119157,85.3947706,17.89z/data=!3m1!5s0x39ed10f88339f585:0x9c4ffdbc5317bc2!4m6!3m5!1s0x39ed11dc964fe957:0x4074c99300c9628!8m2!3d26.1180634!4d85.3960641!16s%2Fg%2F11jb8lt1zn?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D";
 
@@ -20,35 +17,12 @@ const Contact = () => {
   const header = useScrollAnimation();
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["contact-page"],
-    queryFn: async () => {
-      const response = await fetchStrapi("contact-page", { populate: ["contactInfo"] });
-      return mapContactPage(response);
-    }
-  });
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success("Thank you! We'll get back to you shortly.");
     setForm({ name: "", email: "", phone: "", message: "" });
   };
-
-  if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center"><Skeleton className="w-full h-full" /></div>;
-  }
-
-  if (isError) {
-    return (
-      <div className="min-h-screen pt-24">
-        <div className="container mx-auto px-4">
-          <ContentLoadError message="Contact page content could not be loaded." />
-        </div>
-      </div>
-    );
-  }
-
-  const { title, subtitle, contactInfo } = data || {};
+  const { title, subtitle, contactInfo } = CONTACT_PAGE_DATA;
 
   return (
     <div className="min-h-screen pt-24">
