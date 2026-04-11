@@ -143,7 +143,7 @@ const BulkOrder = () => {
             <img
               src={heroBannerImage}
               alt="Bulk order banner"
-              className="h-auto max-h-[42vh] w-full object-contain object-center md:max-h-[50vh] 2xl:max-h-[56vh]"
+              className="aspect-[125/43] h-auto w-full object-contain object-center"
             />
           </div>
         </div>

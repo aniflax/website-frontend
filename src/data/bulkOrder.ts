@@ -1,4 +1,4 @@
-import showroom from "@/assets/showroom.jpg";
+import topBanner from "@/assets/bulk-order/top-banner.jpg";
 import sofa1 from "@/assets/products/sofa-1.jpg";
 import sofa2 from "@/assets/products/sofa-2.jpg";
 import bed1 from "@/assets/products/bed-1.jpg";
@@ -9,7 +9,7 @@ import wardrobe1 from "@/assets/products/wardrobe-1.jpg";
 import office1 from "@/assets/products/office-1.jpg";
 
 export const BULK_ORDER_PAGE_DATA = {
-  bannerImage: showroom,
+  bannerImage: topBanner,
   whoWeServe: [
     {
       title: "Hotels & Resorts",
@@ -117,7 +117,7 @@ export const BULK_ORDER_PAGE_DATA = {
       stepDescription: "We coordinate dispatch, on-site delivery, and setup support as required.",
     },
   ],
-  galleryImages: [sofa1, bed1, dining1, wardrobe1, office1, sofa2, bed2, dining2, showroom],
+  galleryImages: [sofa1, bed1, dining1, wardrobe1, office1, sofa2, bed2, dining2, topBanner],
   ctaTitle: "Planning a Bulk Furniture Project?",
   ctaDescription:
     "Talk to Dreams Furniture for custom quotations, design coordination, and dependable project delivery.",
