@@ -55,6 +55,18 @@ const HERO_EYEBROW = "Premium Furniture Collection";
 const HERO_TITLE = "Dreams Furnitures";
 const HERO_SUBTITLE = "Transform your living spaces with handcrafted luxury furniture that speaks elegance and comfort.";
 const HERO_BANNER_IMAGE = "/hero-banner.jpg";
+const CTA_LOGOS = [
+  "/cta-logos/logo-1.jpg",
+  "/cta-logos/logo-2.jpg",
+  "/cta-logos/logo-3.png",
+  "/cta-logos/logo-4.jpg",
+  "/cta-logos/logo-5.png",
+  "/cta-logos/logo-6.jpg",
+  "/cta-logos/logo-7.jpg",
+  "/cta-logos/logo-8.jpg",
+  "/cta-logos/logo-9.jpg",
+  "/cta-logos/logo-10.png",
+];
 const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Dreams+Furniture+-Branded+Furniture+Showroom+in+muzaffarpur+%7C+Best+Furniture+Shop+in+muzaffarpur/@26.119157,85.3947706,17.89z/data=!3m1!5s0x39ed10f88339f585:0x9c4ffdbc5317bc2!4m6!3m5!1s0x39ed11dc964fe957:0x4074c99300c9628!8m2!3d26.1180634!4d85.3960641!16s%2Fg%2F11jb8lt1zn?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D";
 const WHATSAPP_URL = "https://wa.me/919801980316?text=Hi%20Dreams%20Furniture%2C%20I%20want%20to%20enquire%20about%20your%20furniture";
 
@@ -77,7 +89,7 @@ const Index = () => {
     queryKey: ["homepage"],
     queryFn: async () => {
       const response = await fetchStrapi("homepage", {
-        populate: ["incomeTaxBannerImage", "ctaLogos", "whyChoosePoster", "featuredVideos"]
+        populate: ["incomeTaxBannerImage", "whyChoosePoster", "featuredVideos"]
       });
       return mapHomepage(response);
     },
@@ -113,13 +125,9 @@ const Index = () => {
     }
   });
 
-  const { incomeTaxBannerImage, whyChoosePoster, ctaLogos, featuredVideos } = pageData || {};
+  const { incomeTaxBannerImage, whyChoosePoster, featuredVideos } = pageData || {};
   const incomeTaxSectionImage =
     incomeTaxBannerImage && incomeTaxBannerImage !== "/placeholder.svg" ? incomeTaxBannerImage : HERO_BANNER_IMAGE;
-  const displayedCtaLogos =
-    ctaLogos?.length > 0
-      ? Array.from({ length: Math.max(ctaLogos.length, 10) }, (_, index) => ctaLogos[index % ctaLogos.length])
-      : [];
 
   // Helper to convert YouTube URL to embed URL
   const getEmbedUrl = (url: string) => {
@@ -413,9 +421,9 @@ const Index = () => {
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
             Our Corporate <span className="gold-text">Clients</span>
           </h2>
-          {displayedCtaLogos.length > 0 && (
+          {CTA_LOGOS.length > 0 && (
             <div className="mb-6 grid grid-cols-5 justify-items-center gap-2 md:mb-8 md:flex md:flex-wrap md:items-center md:justify-center md:gap-5">
-              {displayedCtaLogos.map((logo: string, index: number) => (
+              {CTA_LOGOS.map((logo: string, index: number) => (
                 <div
                   key={`${logo}-${index}`}
                   className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/95 p-2 shadow-lg ring-1 ring-black/5 backdrop-blur-sm md:h-24 md:w-24 md:rounded-3xl md:p-3"
