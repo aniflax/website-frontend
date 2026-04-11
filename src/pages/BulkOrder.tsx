@@ -150,7 +150,7 @@ const BulkOrder = () => {
       </section>
 
       {hasWhoWeServe && (
-        <section className="px-4 pb-16 pt-8 sm:px-6 md:pb-24 md:pt-10 lg:px-8">
+        <section className="px-1 pb-16 pt-8 sm:px-6 md:pb-24 md:pt-10 lg:px-8">
           <div className="container mx-auto">
             <div
               ref={serve.ref}
@@ -159,150 +159,24 @@ const BulkOrder = () => {
               }`}
             >
               <p className="mb-2 text-sm uppercase tracking-[0.2em] text-primary">{sectionHeadings.serve.eyebrow}</p>
-              <h2 className="font-display text-4xl font-bold md:text-5xl">{sectionHeadings.serve.title}</h2>
+              <h2 className="font-display text-2xl font-bold md:text-5xl">{sectionHeadings.serve.title}</h2>
             </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-3 gap-1.5 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
               {resolvedData.whoWeServe.map((item: any, index: number) => (
-                <article key={`${item.title}-${index}`} className="glass-card-hover p-7">
-                  <div className="mb-6 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-primary/10">
+                <article key={`${item.title}-${index}`} className="glass-card-hover p-2 md:p-7">
+                  <div className="mb-2 flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-primary/10 md:mb-6 md:h-16 md:w-16 md:rounded-2xl">
                     {item.icon ? (
                       <img src={item.icon} alt={item.title} className="h-full w-full object-cover" />
                     ) : (
                       <DynamicIcon
                         name={titleIconMap[item.title] || "package"}
-                        className="h-7 w-7 text-primary"
+                        className="h-4 w-4 text-primary md:h-7 md:w-7"
                       />
                     )}
                   </div>
-                  <h3 className="mb-3 font-display text-2xl font-semibold">{item.title}</h3>
-                  {item.description && <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>}
+                  <h3 className="mb-1 font-display text-[0.65rem] font-semibold leading-tight md:mb-3 md:text-2xl">{item.title}</h3>
+                  {item.description && <p className="hidden text-sm leading-relaxed text-muted-foreground md:block">{item.description}</p>}
                 </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {hasCategories && (
-        <section className="section-padding bg-secondary/20">
-          <div className="container mx-auto">
-            <div
-              ref={categories.ref}
-              className={`mb-12 text-center transition-all duration-700 ${
-                categories.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <p className="mb-2 text-sm uppercase tracking-[0.2em] text-primary">{sectionHeadings.categories.eyebrow}</p>
-              <h2 className="font-display text-4xl font-bold md:text-5xl">{sectionHeadings.categories.title}</h2>
-            </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {resolvedData.furnitureCategories.map((item: any, index: number) => (
-                <article key={`${item.title}-${index}`} className="group overflow-hidden rounded-[1.75rem] border border-glass-border bg-card/70">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-secondary/40">
-                    {item.image ? (
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center bg-gradient-to-br from-primary/10 via-secondary/20 to-primary/5">
-                        <Icons.Package className="h-10 w-10 text-primary/70" />
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/75 via-transparent to-transparent" />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="mb-3 font-display text-2xl font-semibold">{item.title}</h3>
-                    {item.description && <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-line">{item.description}</p>}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {hasWhyChooseUs && (
-        <section className="section-padding">
-          <div className="container mx-auto">
-            <div
-              ref={whyChoose.ref}
-              className={`mb-12 text-center transition-all duration-700 ${
-                whyChoose.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <p className="mb-2 text-sm uppercase tracking-[0.2em] text-primary">{sectionHeadings.whyChoose.eyebrow}</p>
-              <h2 className="font-display text-4xl font-bold md:text-5xl">{sectionHeadings.whyChoose.title}</h2>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {resolvedData.whyChooseUs.map((item: any, index: number) => (
-                <article key={`${item.title}-${index}`} className="glass-card-hover p-7">
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
-                    <DynamicIcon name={item.icon || titleIconMap[item.title] || "shield-check"} className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="mb-3 font-display text-2xl font-semibold">{item.title}</h3>
-                  {item.description && <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>}
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {hasProcessSteps && (
-        <section className="section-padding bg-secondary/20">
-          <div className="container mx-auto">
-            <div
-              ref={process.ref}
-              className={`mb-12 text-center transition-all duration-700 ${
-                process.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <p className="mb-2 text-sm uppercase tracking-[0.2em] text-primary">{sectionHeadings.process.eyebrow}</p>
-              <h2 className="font-display text-4xl font-bold md:text-5xl">{sectionHeadings.process.title}</h2>
-            </div>
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
-              {resolvedData.processSteps.map((item: any, index: number) => (
-                <article key={`${item.stepTitle}-${index}`} className="relative glass-card p-6">
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    {index + 1}
-                  </div>
-                  <h3 className="mb-3 font-display text-xl font-semibold">{item.stepTitle}</h3>
-                  {item.stepDescription && (
-                    <p className="text-sm leading-relaxed text-muted-foreground">{item.stepDescription}</p>
-                  )}
-                  {index < resolvedData.processSteps.length - 1 && (
-                    <ChevronRight className="absolute -right-4 top-10 hidden h-6 w-6 text-primary/60 lg:block" />
-                  )}
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {hasGallery && (
-        <section className="section-padding">
-          <div className="container mx-auto">
-            <div
-              ref={gallery.ref}
-              className={`mb-12 text-center transition-all duration-700 ${
-                gallery.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <p className="mb-2 text-sm uppercase tracking-[0.2em] text-primary">{sectionHeadings.gallery.eyebrow}</p>
-              <h2 className="font-display text-4xl font-bold md:text-5xl">{sectionHeadings.gallery.title}</h2>
-            </div>
-            <div className="columns-1 gap-5 space-y-5 md:columns-2 xl:columns-3">
-              {showcaseImages.map((image: string, index: number) => (
-                <div key={`${image}-${index}`} className="overflow-hidden rounded-[1.75rem] break-inside-avoid border border-glass-border">
-                  <img
-                    src={image}
-                    alt={`Bulk project ${index + 1}`}
-                    className="w-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                </div>
               ))}
             </div>
           </div>
@@ -323,7 +197,7 @@ const BulkOrder = () => {
               <p className="mb-8 max-w-xl text-base leading-relaxed text-muted-foreground">
                 {sectionHeadings.form.description}
               </p>
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-1">
                 {[
                   "Bulk pricing for project-scale requirements",
                   "Design guidance for residential and commercial spaces",
@@ -337,8 +211,8 @@ const BulkOrder = () => {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="glass-card p-6 md:p-8">
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <form onSubmit={handleSubmit} className="glass-card p-5 md:p-8">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {[
                   { key: "name", label: "Name", type: "text" },
                   { key: "companyName", label: "Company Name", type: "text" },
@@ -349,37 +223,96 @@ const BulkOrder = () => {
                   { key: "quantity", label: "Quantity", type: "number" },
                 ].map(({ key, label, type }) => (
                   <div key={key} className={key === "quantity" ? "md:col-span-2" : ""}>
-                    <label className="mb-2 block text-sm text-muted-foreground">{label}</label>
+                    <label className="mb-1 block text-xs text-muted-foreground md:mb-2 md:text-sm">{label}</label>
                     <input
                       type={type}
                       required
                       min={type === "number" ? 1 : undefined}
                       value={form[key as keyof typeof form]}
                       onChange={(event) => handleChange(key, event.target.value)}
-                      className="w-full rounded-xl border border-border bg-secondary px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 md:rounded-xl md:px-4 md:py-3 md:text-base"
                       placeholder={label}
                     />
                   </div>
                 ))}
                 <div className="md:col-span-2">
-                  <label className="mb-2 block text-sm text-muted-foreground">Message</label>
+                  <label className="mb-1 block text-xs text-muted-foreground md:mb-2 md:text-sm">Message</label>
                   <textarea
                     required
-                    rows={5}
+                    rows={4}
                     value={form.message}
                     onChange={(event) => handleChange("message", event.target.value)}
-                    className="w-full resize-none rounded-xl border border-border bg-secondary px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    className="w-full resize-none rounded-lg border border-border bg-secondary px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 md:rounded-xl md:px-4 md:py-3 md:text-base"
                     placeholder="Tell us about your project requirements, timeline, and preferred furniture."
                   />
                 </div>
               </div>
-              <button type="submit" className="btn-primary-glass mt-6 inline-flex w-full items-center justify-center gap-2">
+              <button type="submit" className="btn-primary-glass mt-5 inline-flex w-full items-center justify-center gap-2 py-3 md:mt-6 md:py-4">
                 Request Quote <ArrowRight size={18} />
               </button>
             </form>
           </div>
         </div>
       </section>
+
+      {hasWhyChooseUs && (
+        <section className="section-padding">
+          <div className="container mx-auto">
+            <div
+              ref={whyChoose.ref}
+              className={`mb-12 text-center transition-all duration-700 ${
+                whyChoose.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <p className="mb-2 text-sm uppercase tracking-[0.2em] text-primary">{sectionHeadings.whyChoose.eyebrow}</p>
+              <h2 className="font-display text-2xl font-bold md:text-5xl">{sectionHeadings.whyChoose.title}</h2>
+            </div>
+            <div className="grid grid-cols-3 gap-1.5 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
+              {resolvedData.whyChooseUs.map((item: any, index: number) => (
+                <article key={`${item.title}-${index}`} className="glass-card-hover p-2 md:p-7">
+                  <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 md:mb-5 md:h-14 md:w-14 md:rounded-2xl">
+                    <DynamicIcon name={item.icon || titleIconMap[item.title] || "shield-check"} className="h-4 w-4 text-primary md:h-6 md:w-6" />
+                  </div>
+                  <h3 className="mb-1 font-display text-[0.65rem] font-semibold leading-tight md:mb-3 md:text-2xl">{item.title}</h3>
+                  {item.description && <p className="hidden text-sm leading-relaxed text-muted-foreground md:block">{item.description}</p>}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {hasProcessSteps && (
+        <section className="section-padding bg-secondary/20">
+          <div className="container mx-auto">
+            <div
+              ref={process.ref}
+              className={`mb-12 text-center transition-all duration-700 ${
+                process.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <p className="mb-2 text-sm uppercase tracking-[0.2em] text-primary">{sectionHeadings.process.eyebrow}</p>
+              <h2 className="font-display text-2xl font-bold md:text-5xl">{sectionHeadings.process.title}</h2>
+            </div>
+            <div className="grid grid-cols-5 gap-1 md:gap-6 lg:grid-cols-5">
+              {resolvedData.processSteps.map((item: any, index: number) => (
+                <article key={`${item.stepTitle}-${index}`} className="relative glass-card p-2 md:p-6">
+                  <div className="mb-2 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-[0.6rem] text-primary-foreground md:mb-5 md:h-12 md:w-12 md:text-base">
+                    {index + 1}
+                  </div>
+                  <h3 className="mb-1 font-display text-[0.55rem] font-semibold leading-tight md:mb-3 md:text-xl">{item.stepTitle}</h3>
+                  {item.stepDescription && (
+                    <p className="hidden text-sm leading-relaxed text-muted-foreground md:block">{item.stepDescription}</p>
+                  )}
+                  {index < resolvedData.processSteps.length - 1 && (
+                    <ChevronRight className="absolute -right-2 top-4 hidden h-4 w-4 text-primary/60 md:-right-4 md:top-10 lg:block lg:h-6 lg:w-6" />
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {hasCta && (
         <section className="section-padding">

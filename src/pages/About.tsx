@@ -49,18 +49,15 @@ const About = () => {
       return mapAboutPage(response);
     }
   });
-  const { heroImage, storyImage } = data || {};
+  const { storyImage } = data || {};
+  const heroImage = "/hero-banner.jpg";
 
   return (
     <div className="min-h-screen pt-24">
       {/* Hero */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0">
-          {isLoading ? (
-            <Skeleton className="h-full w-full rounded-none" />
-          ) : (
-            <img src={heroImage} alt="Showroom" className="w-full h-full object-cover" />
-          )}
+          <img src={heroImage} alt="Showroom" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-background/70" />
         </div>
         <div ref={header.ref} className={`relative z-10 container mx-auto px-4 text-center max-w-3xl transition-all duration-700 ${header.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
