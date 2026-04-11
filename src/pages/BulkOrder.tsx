@@ -1,11 +1,9 @@
-import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import * as Icons from "lucide-react";
 import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
-import { fetchStrapi, mapBulkOrderPage, mapStrapiGallery, mapStrapiProduct } from "@/lib/strapi";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { BULK_ORDER_PAGE_DATA } from "@/data/bulkOrder";
 
 const WHATSAPP_NUMBER = "919801980316";
 
@@ -53,118 +51,6 @@ const sectionHeadings = {
   },
 };
 
-const defaultWhoWeServe = [
-  {
-    title: "Hotels & Resorts",
-    description: "Elegant guest room, lobby, and lounge furniture tailored for hospitality environments.",
-  },
-  {
-    title: "Offices & Workspaces",
-    description: "Functional desks, chairs, workstations, and meeting room furniture for modern offices.",
-  },
-  {
-    title: "Restaurants & Cafes",
-    description: "Durable seating and tables built for daily commercial use without compromising on style.",
-  },
-  {
-    title: "Real Estate Developers",
-    description: "Bulk furnishing support for sample flats, clubhouses, and complete residential projects.",
-  },
-  {
-    title: "Interior Designers",
-    description: "Reliable manufacturing and custom furniture support for turnkey interior projects.",
-  },
-  {
-    title: "Schools & Institutions",
-    description: "Practical, robust furniture solutions for campuses, training centers, and institutional spaces.",
-  },
-];
-
-const defaultFurnitureCategories = [
-  {
-    title: "Living Room",
-    description: "Sofas, armchairs, coffee tables, and TV units for premium shared spaces.",
-  },
-  {
-    title: "Bedroom",
-    description: "Beds, wardrobes, bedside tables, and complete room furniture packages.",
-  },
-  {
-    title: "Dining",
-    description: "Dining tables and dining chairs suitable for homes, hospitality, and cafes.",
-  },
-  {
-    title: "Office",
-    description: "Office chairs, workstations, executive desks, and conference tables.",
-  },
-  {
-    title: "Commercial",
-    description: "Restaurant seating, reception furniture, and lounge seating for business spaces.",
-  },
-];
-
-const defaultWhyChooseUs = [
-  {
-    title: "Bulk Pricing",
-    description: "Project-friendly pricing and quantity-based cost efficiency for large requirements.",
-    icon: "badge-percent",
-  },
-  {
-    title: "Custom Designs",
-    description: "Flexible design support to align furniture with your layout and aesthetic goals.",
-    icon: "pencil-ruler",
-  },
-  {
-    title: "High Quality Materials",
-    description: "Strong materials, quality finishes, and dependable workmanship across categories.",
-    icon: "shield-check",
-  },
-  {
-    title: "Fast Production",
-    description: "Planned production timelines to help keep your project delivery on track.",
-    icon: "factory",
-  },
-  {
-    title: "Pan India Delivery",
-    description: "Reliable logistics coordination for projects across cities and states.",
-    icon: "truck",
-  },
-  {
-    title: "Dedicated Project Support",
-    description: "A responsive team to assist with planning, quotations, and execution follow-through.",
-    icon: "headset",
-  },
-];
-
-const defaultProcessSteps = [
-  {
-    stepTitle: "Submit Request",
-    stepDescription: "Share your furniture needs, project type, location, and expected quantities.",
-  },
-  {
-    stepTitle: "Consultation with our team",
-    stepDescription: "We understand your use case, style direction, and commercial requirements.",
-  },
-  {
-    stepTitle: "Custom quotation",
-    stepDescription: "Receive a tailored quotation with product scope, pricing, and estimated timelines.",
-  },
-  {
-    stepTitle: "Manufacturing",
-    stepDescription: "Once approved, we move into production with quality checks throughout the process.",
-  },
-  {
-    stepTitle: "Delivery & installation",
-    stepDescription: "We coordinate dispatch, on-site delivery, and setup support as required.",
-  },
-];
-
-const defaultCta = {
-  title: "Planning a Bulk Furniture Project?",
-  description:
-    "Talk to Dreams Furniture for custom quotations, design coordination, and dependable project delivery.",
-};
-
 const DynamicIcon = ({
   name,
   className,
@@ -199,85 +85,8 @@ const BulkOrder = () => {
     quantity: "",
     message: "",
   });
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["bulk-order-page"],
-    queryFn: async () => {
-      try {
-        const response = await fetchStrapi("bulk-order-page", { populate: "*" });
-
-        return mapBulkOrderPage(response);
-      } catch (error) {
-        console.warn("Bulk Order page entry unavailable in Strapi. Using fallback content.", error);
-        return null;
-      }
-    },
-  });
-
-  const { data: galleryItems } = useQuery({
-    queryKey: ["bulk-order-gallery-fallback"],
-    queryFn: async () => {
-      const response = await fetchStrapi("galleries", { "pagination[limit]": 12, "populate": "*" });
-      return (response.data || []).map(mapStrapiGallery).filter(Boolean);
-    },
-  });
-
-  const { data: productItems } = useQuery({
-    queryKey: ["bulk-order-products-fallback"],
-    queryFn: async () => {
-      const response = await fetchStrapi("products", { "pagination[limit]": 12, "populate": "*" });
-      return (response.data || []).map(mapStrapiProduct).filter(Boolean);
-    },
-  });
-
-  const resolvedData = useMemo(() => {
-    const productImages = (productItems || []).flatMap((item: any) => [item.image, ...(item.images || [])]).filter(Boolean);
-    const galleryImages = (galleryItems || []).filter(Boolean);
-    const bulkPageGalleryImages = (data?.galleryImages || []).filter(Boolean);
-    const fallbackImagePool = [...galleryImages, ...productImages].filter(Boolean);
-    const imagePool = (bulkPageGalleryImages.length ? bulkPageGalleryImages : fallbackImagePool).filter(Boolean);
-
-    const pickImage = (index: number) => imagePool[index % Math.max(imagePool.length, 1)];
-    const findProductImage = (keyword: string) =>
-      (productItems || []).find((item: any) => item.category?.toLowerCase().includes(keyword) || item.name?.toLowerCase().includes(keyword))?.image;
-
-    const hasBulkPageContent = Boolean(data);
-
-    const whoWeServe = (data?.whoWeServe?.length ? data.whoWeServe : defaultWhoWeServe).map((item: any, index: number) => ({
-      ...item,
-      icon: item.icon || (!hasBulkPageContent ? pickImage(index) : undefined),
-    }));
-
-    const categoryImageMap = [
-      findProductImage("sofa") || pickImage(0),
-      findProductImage("bed") || findProductImage("wardrobe") || pickImage(1),
-      findProductImage("dining") || pickImage(2),
-      findProductImage("office") || pickImage(3),
-      pickImage(4),
-    ];
-
-    const furnitureCategories = (data?.furnitureCategories?.length ? data.furnitureCategories : defaultFurnitureCategories).map(
-      (item: any, index: number) => ({
-        ...item,
-        image: item.image || (!hasBulkPageContent ? categoryImageMap[index] || pickImage(index) : undefined),
-      })
-    );
-
-    return {
-      whoWeServe,
-      furnitureCategories,
-      whyChooseUs: data?.whyChooseUs?.length ? data.whyChooseUs : defaultWhyChooseUs,
-      processSteps: data?.processSteps?.length ? data.processSteps : defaultProcessSteps,
-      galleryImages: bulkPageGalleryImages.length ? bulkPageGalleryImages.slice(0, 9) : imagePool.slice(0, 9),
-      ctaTitle: data?.ctaTitle || defaultCta.title,
-      ctaDescription: data?.ctaDescription || defaultCta.description,
-    };
-  }, [data, galleryItems, productItems]);
-
-  const showcaseImages = useMemo(
-    () => (resolvedData.galleryImages || []).filter(Boolean),
-    [resolvedData.galleryImages]
-  );
+  const resolvedData = BULK_ORDER_PAGE_DATA;
+  const showcaseImages = resolvedData.galleryImages.filter(Boolean);
 
   const handleChange = (field: string, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -324,17 +133,13 @@ const BulkOrder = () => {
   const hasProcessSteps = Boolean(resolvedData.processSteps?.length);
   const hasGallery = Boolean(showcaseImages.length);
   const hasCta = Boolean(resolvedData.ctaTitle || resolvedData.ctaDescription);
-  const heroBannerImage = data?.bannerImage || "/placeholder.svg";
+  const heroBannerImage = resolvedData.bannerImage || "/placeholder.svg";
 
   return (
     <div className="min-h-screen pt-24">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          {isLoading ? (
-            <Skeleton className="h-full w-full rounded-none" />
-          ) : (
-            <img src={heroBannerImage} alt="Bulk order banner" className="h-full w-full object-cover" />
-          )}
+          <img src={heroBannerImage} alt="Bulk order banner" className="h-full w-full object-cover" />
         </div>
         <div className="relative h-[320px] md:h-[400px] lg:h-[440px]" />
       </section>
