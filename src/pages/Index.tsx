@@ -89,7 +89,7 @@ const Index = () => {
     queryKey: ["homepage"],
     queryFn: async () => {
       const response = await fetchStrapi("homepage", {
-        populate: ["incomeTaxBannerImage", "whyChoosePoster", "featuredVideos"]
+        populate: ["whyChoosePoster", "featuredVideos"]
       });
       return mapHomepage(response);
     },
@@ -125,9 +125,7 @@ const Index = () => {
     }
   });
 
-  const { incomeTaxBannerImage, whyChoosePoster, featuredVideos } = pageData || {};
-  const incomeTaxSectionImage =
-    incomeTaxBannerImage && incomeTaxBannerImage !== "/placeholder.svg" ? incomeTaxBannerImage : HERO_BANNER_IMAGE;
+  const { whyChoosePoster, featuredVideos } = pageData || {};
 
   // Helper to convert YouTube URL to embed URL
   const getEmbedUrl = (url: string) => {
@@ -411,13 +409,10 @@ const Index = () => {
       </section>
 
       {/* CTA */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={incomeTaxSectionImage} alt="Our Corporate Clients" className="w-full h-full object-cover" />
-        </div>
+      <section className="bg-white py-24">
         <div
           ref={cta.ref}
-          className={`relative z-10 container mx-auto px-4 text-center max-w-2xl transition-all duration-700 ${cta.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          className={`container mx-auto max-w-2xl px-4 text-center transition-all duration-700 ${cta.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
             Our Corporate <span className="gold-text">Clients</span>
           </h2>
