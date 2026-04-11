@@ -137,9 +137,9 @@ const BulkOrder = () => {
 
   return (
     <div className="min-h-screen pt-24">
-      <section className="bg-secondary/20 px-3 pb-4 pt-2 sm:px-4 md:px-6 lg:px-8">
-        <div className="container mx-auto">
-          <div className="overflow-hidden rounded-[1.75rem] border border-glass-border bg-card/60">
+      <section className="bg-secondary/20 px-0 pb-4 pt-2 sm:px-4 md:px-6 lg:px-8">
+        <div className="mx-auto w-full sm:container">
+          <div className="overflow-hidden border-y border-glass-border bg-card/60 sm:rounded-[1.75rem] sm:border">
             <img
               src={heroBannerImage}
               alt="Bulk order banner"

@@ -164,7 +164,8 @@ const Index = () => {
           className={`relative z-10 container mx-auto px-4 lg:px-8 max-w-3xl transition-all duration-1000 ${hero.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
           
           <p className="text-primary uppercase tracking-[0.3em] text-sm font-medium mb-4">{HERO_EYEBROW}</p>
-          <h1 className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6" dangerouslySetInnerHTML={{ __html: HERO_TITLE.replace("Dreams", "<span class='hero-dreams-text'>Dreams</span>") }}>
+          <h1 className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6">
+            <span className="hero-dreams-text">Dreams</span> Furnitures
           </h1>
           <p className="hero-subtitle-glass mb-10">
             {HERO_SUBTITLE}
