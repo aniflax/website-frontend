@@ -8,6 +8,7 @@ import ProductCard from "@/components/ProductCard";
 import { fetchStrapi, mapStrapiProduct, mapHomepage, getStrapiURL } from "@/lib/strapi";
 import { Skeleton } from "@/components/ui/skeleton";
 import ContentLoadError from "@/components/ContentLoadError";
+import { HOME_TESTIMONIALS, HOME_WHY_CHOOSE_ITEMS } from "@/data/homepage";
 
 // Provide a safe icon renderer
 const DynamicIcon = ({ name, ...props }: { name: string; [key: string]: any }) => {
@@ -75,7 +76,7 @@ const Index = () => {
     queryKey: ["homepage"],
     queryFn: async () => {
       const response = await fetchStrapi("homepage", {
-        populate: ["heroImage", "incomeTaxBannerImage", "ctaLogos", "whyChoosePoster", "whyChoose", "testimonials", "featuredVideos"]
+        populate: ["heroImage", "incomeTaxBannerImage", "ctaLogos", "whyChoosePoster", "featuredVideos"]
       });
       return mapHomepage(response);
     },
@@ -111,7 +112,7 @@ const Index = () => {
     }
   });
 
-  const { heroImage, incomeTaxBannerImage, whyChoosePoster, ctaLogos, whyChoose, testimonials, featuredVideos } = pageData || {};
+  const { heroImage, incomeTaxBannerImage, whyChoosePoster, ctaLogos, featuredVideos } = pageData || {};
   const incomeTaxSectionImage =
     incomeTaxBannerImage && incomeTaxBannerImage !== "/placeholder.svg" ? incomeTaxBannerImage : heroImage;
   const displayedCtaLogos =
@@ -362,13 +363,7 @@ const Index = () => {
             <h2 className="font-display text-4xl md:text-5xl font-bold">Why Choose Dreams Furniture</h2>
           </div>
           <div className="grid auto-cols-[78%] grid-flow-col gap-4 overflow-x-auto pb-2 sm:grid-cols-2 sm:grid-flow-row sm:auto-cols-auto sm:gap-6 sm:overflow-visible sm:pb-0 lg:grid-cols-4">
-            {pageLoading ? (
-              Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
-            ) : pageError ? (
-              <div className="col-span-full">
-                <ContentLoadError message="Homepage highlights could not be loaded." />
-              </div>
-            ) : whyChoose?.map(({ icon, title, desc }: any, i: number) => (
+            {HOME_WHY_CHOOSE_ITEMS.map(({ icon, title, desc }, i) => (
               <div key={title} className="glass-card-hover p-6 text-center sm:p-8" style={{ transitionDelay: `${i * 100}ms` }}>
                 <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
                   <DynamicIcon name={icon || "star"} size={28} className="text-primary" />
@@ -391,13 +386,7 @@ const Index = () => {
             <h2 className="font-display text-4xl md:text-5xl font-bold">What Our Customers Say</h2>
           </div>
           <div className="grid auto-cols-[82%] grid-flow-col gap-4 overflow-x-auto pb-2 md:grid-cols-3 md:grid-flow-row md:auto-cols-auto md:gap-6 md:overflow-visible md:pb-0">
-            {pageLoading ? (
-              Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-2xl w-full" />)
-            ) : pageError ? (
-              <div className="col-span-full">
-                <ContentLoadError message="Testimonials could not be loaded." />
-              </div>
-            ) : testimonials?.map((t: any, i: number) => (
+            {HOME_TESTIMONIALS.map((t, i) => (
               <div key={i} className="glass-card p-6 sm:p-8">
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: t.rating || 5 }).map((_, j) => (
